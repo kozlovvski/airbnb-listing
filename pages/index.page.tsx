@@ -1,9 +1,14 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { getListingsFromAPIRoute } from 'services/listings/listings.service';
 import styles from '../styles/Home.module.css';
+import getListings from 'pages/api/getListings.page';
 
 const Home: NextPage = () => {
+  const { data } = useQuery('listings', getListingsFromAPIRoute);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,7 +21,9 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-
+        {data &&
+          data.length > 0 &&
+          data.map((listing) => <p key={listing._id}>{listing.name}</p>)}
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
@@ -67,6 +74,17 @@ const Home: NextPage = () => {
       </footer>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('listings', getListingsFromAPIRoute);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default Home;
