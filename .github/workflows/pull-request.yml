@@ -6,6 +6,9 @@ jobs:
   release-dry-run:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Setup Node
         uses: ./.github/actions/custom-setup-node
         with:
@@ -14,6 +17,9 @@ jobs:
   test-build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Setup Node
         uses: ./.github/actions/custom-setup-node
         with:
@@ -25,6 +31,9 @@ jobs:
   test-tsc:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Setup Node
         uses: ./.github/actions/custom-setup-node
         with:
@@ -36,6 +45,9 @@ jobs:
   test-eslint:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Setup Node
         uses: ./.github/actions/custom-setup-node
         with:
@@ -47,6 +59,9 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Setup Node
         uses: ./.github/actions/custom-setup-node
         with:
