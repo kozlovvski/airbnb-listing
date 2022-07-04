@@ -1,1 +1,1 @@
-export const LISTINGS_COLLECTION_NAME = "listingsAndReviews";
+export const LISTINGS_COLLECTION_NAME = 'listingsAndReviews';
