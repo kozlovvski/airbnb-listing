@@ -1,0 +1,46 @@
+name: 'Setup environment'
+description: 'Setup Node environment with caching'
+inputs:
+  GITHUB_TOKEN:
+    required: true
+    description: 'Github token from secrets'
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      shell: bash
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Cache yarn cache
+      uses: actions/cache@v3
+      id: yarn-cache
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Cache node_modules
+      id: cache-node-modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-nodemodules-
+
+    - name: Install project dependencies
+      shell: bash
+      run: yarn
+      if: |
+        steps.cache-yarn-cache.outputs.cache-hit != 'true' ||
+        steps.cache-node-modules.outputs.cache-hit != 'true'

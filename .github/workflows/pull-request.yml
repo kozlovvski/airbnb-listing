@@ -1,0 +1,56 @@
+name: Pull request runner
+on:
+  pull_request:
+
+jobs:
+  release-dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: ./.github/actions/custom-setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: ./.github/actions/custom-setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: yarn build
+
+  test-tsc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: ./.github/actions/custom-setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run typescript
+        run: yarn tsc
+
+  test-eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: ./.github/actions/custom-setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run ESLint
+        run: yarn lint
+
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: ./.github/actions/custom-setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run tests
+        run: yarn test
