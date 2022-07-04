@@ -1,5 +1,5 @@
 import { QueryFunction } from 'react-query';
-import { NEXT_API_URL } from 'services/services.constant';
+import { NEXT_API_URL } from 'services/services.constants';
 
 export const getListingsFromAPIRoute: QueryFunction<Listing[]> = async ({
   signal,

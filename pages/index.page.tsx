@@ -5,6 +5,7 @@ import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { getListingsFromAPIRoute } from 'services/listings/listings.service';
 import styles from '../styles/Home.module.css';
 import getListings from 'pages/api/getListings.page';
+import { HOUR_IN_SECONDS } from 'helpers/helpers.constants';
 
 const Home: NextPage = () => {
   const { data } = useQuery('listings', getListingsFromAPIRoute);
@@ -76,7 +77,7 @@ const Home: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery('listings', getListingsFromAPIRoute);
 
@@ -84,6 +85,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: HOUR_IN_SECONDS,
   };
 };
 
