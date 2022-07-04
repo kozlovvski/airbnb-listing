@@ -5,6 +5,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  publicRuntimeConfig: {
+    PUBLIC_URL: process.env.VERCEL_URL || 'localhost:3000',
+  },
 };
 
 module.exports = nextConfig;
