@@ -9,7 +9,9 @@ import { useRouter } from 'next/router';
  * rerenders while changing the page.
  */
 export const ListingListLayout = ({ children }: PropsWithChildren) => {
-  const { data } = useQuery('listings', getListingsFromAPIRoute);
+  const { data } = useQuery('listings', getListingsFromAPIRoute, {
+    refetchOnWindowFocus: false,
+  });
   const { listing_id } = useRouter().query;
 
   if (Array.isArray(listing_id)) {

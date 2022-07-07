@@ -1,10 +1,9 @@
-import { QueryFunction } from 'react-query';
 import { LISTINGS_COLLECTION_NAME } from 'services/mongodb/mongodb.constants';
-import { connectToDatabase } from 'services/mongodb/mongodb.service';
+import clientPromise from 'services/mongodb/mongodb.service';
 
 export const getListingsFromMongo = async () => {
-  const { db } = await connectToDatabase();
-  const collection = db.collection(LISTINGS_COLLECTION_NAME);
+  const client = await clientPromise;
+  const collection = client.db().collection(LISTINGS_COLLECTION_NAME);
 
   return collection
     .aggregate<Listing>([
