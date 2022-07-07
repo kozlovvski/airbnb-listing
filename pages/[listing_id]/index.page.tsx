@@ -1,14 +1,16 @@
 import type { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { getListingsFromMongo } from 'services/listings/listings.mongodb.service';
-import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 import { ListingListLayout } from 'layouts/ListingListLayout';
+import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 
-const Home: NextPageWithLayout = () => {
-  return <div>home page</div>;
+const DetailedListingPage: NextPageWithLayout = () => {
+  return <div>listing</div>;
 };
 
-Home.getLayout = (page) => <ListingListLayout>{page}</ListingListLayout>;
+DetailedListingPage.getLayout = (page) => (
+  <ListingListLayout>{page}</ListingListLayout>
+);
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
@@ -21,4 +23,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default Home;
+export default DetailedListingPage;
