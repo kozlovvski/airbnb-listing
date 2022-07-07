@@ -2,10 +2,11 @@ import type { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
-import { getListingsFromAPIRoute } from 'services/listings/listings.service';
 import styles from '../styles/Home.module.css';
 import getListings from 'pages/api/getListings.page';
 import { HOUR_IN_SECONDS } from 'helpers/helpers.constants';
+import { getListingsFromAPIRoute } from 'services/listings/listings.api.service';
+import { getListingsFromMongo } from 'services/listings/listings.mongodb.service';
 
 const Home: NextPage = () => {
   const { data } = useQuery('listings', getListingsFromAPIRoute);
@@ -79,7 +80,7 @@ const Home: NextPage = () => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery('listings', getListingsFromAPIRoute);
+  await queryClient.prefetchQuery('listings', getListingsFromMongo);
 
   return {
     props: {

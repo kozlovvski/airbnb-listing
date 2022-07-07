@@ -1,9 +1,29 @@
-import { MongoClient } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 
 const mongoConnectionString = process.env.MONGO_CONNECTION_STRING;
 
-if (!mongoConnectionString) {
-  throw new Error('MONGO_CONNECTION_STRING env is not set');
-}
+type Connection = {
+  client: MongoClient;
+  db: Db;
+};
 
-export const mongoClient = new MongoClient(mongoConnectionString);
+let cachedConnection: Connection;
+
+export async function connectToDatabase() {
+  if (!mongoConnectionString) {
+    throw new Error('MONGO_CONNECTION_STRING env is not set');
+  }
+
+  if (cachedConnection) return cachedConnection;
+
+  const client = await MongoClient.connect(mongoConnectionString);
+  const db = client.db();
+
+  const connection = {
+    client,
+    db,
+  };
+
+  cachedConnection = connection;
+  return connection;
+}
