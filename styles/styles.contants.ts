@@ -1,1 +1,1 @@
-export const WRAPPER_WIDTH = 1200;
+export const WRAPPER_WIDTH = 1400;
