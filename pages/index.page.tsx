@@ -9,9 +9,11 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      {data &&
-        data.length > 0 &&
-        data.map((listing) => <p key={listing._id}>{listing.name}</p>)}
+      <ul data-testid="listing-list">
+        {data &&
+          data.length > 0 &&
+          data.map((listing) => <li key={listing._id}>{listing.name}</li>)}
+      </ul>
     </div>
   );
 };
