@@ -55,20 +55,3 @@ jobs:
 
       - name: Run ESLint
         run: yarn lint
-
-  run-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: ./.github/actions/custom-setup-node
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run tests
-        run: yarn test --coverage
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
