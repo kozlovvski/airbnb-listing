@@ -12,7 +12,11 @@ const ListingList = ({ listings, selectedId }: Props) => {
   return (
     <ListingListWrapper>
       {listings.map((listing) => (
-        <ListingListItem listing={listing} key={listing._id} />
+        <ListingListItem
+          listing={listing}
+          key={listing._id}
+          isSelected={listing._id === selectedId}
+        />
       ))}
     </ListingListWrapper>
   );

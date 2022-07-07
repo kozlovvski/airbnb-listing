@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { getListingThumbnail } from './ListingListItem.helpers';
 import { Text } from '@chakra-ui/react';
 import { formatPrice } from 'helpers/price.helpers';
+import { ListingListItemOverlay } from './ListingListItemOverlay/ListingListItemOverlay.component';
 
 type Props = {
   listing: Listing;
@@ -21,6 +22,7 @@ const ListingListItem = ({ listing, isSelected }: Props) => {
   return (
     <Link href={`/${listing._id}`}>
       <ListingListItemWrapper>
+        <ListingListItemOverlay isSelected={isSelected} />
         <ListingListItemThumbnailWrapper>
           <ListingListItemThumbnail src={thumbnail} />
         </ListingListItemThumbnailWrapper>
