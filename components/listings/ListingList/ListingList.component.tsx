@@ -1,6 +1,6 @@
 import React from 'react';
+
 import { ListingListWrapper } from './ListingList.styles';
-import Link from 'next/link';
 import ListingListItem from './ListingListItem/ListingListItem.component';
 
 type Props = {

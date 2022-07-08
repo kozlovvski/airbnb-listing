@@ -1,7 +1,8 @@
-import { mockedListingList } from 'tests/data/listings';
 import { FetchMock } from 'jest-fetch-mock';
-import { getListingsFromAPIRoute } from './listings.api.service';
 import { QueryFunctionContext } from 'react-query';
+import { mockedListingList } from 'tests/data/listings';
+
+import { getListingsFromAPIRoute } from './listings.api.service';
 
 declare var fetch: FetchMock;
 

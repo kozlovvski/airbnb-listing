@@ -1,7 +1,8 @@
-import ListingListItem from './ListingListItem.component';
 import { render } from '@testing-library/react';
-import { wrapper } from 'tests/testUtils';
 import { mockedListing } from 'tests/data/listings';
+import { wrapper } from 'tests/testUtils';
+
+import ListingListItem from './ListingListItem.component';
 
 describe('ListingListItem', () => {
   it('should render a list item', () => {

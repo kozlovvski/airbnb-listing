@@ -1,13 +1,14 @@
+import { Text } from '@chakra-ui/react';
+import { formatPrice } from 'helpers/price.helpers';
+import Link from 'next/link';
 import React, { useMemo } from 'react';
+
+import { getListingThumbnail } from './ListingListItem.helpers';
 import {
   ListingListItemThumbnail,
   ListingListItemThumbnailWrapper,
   ListingListItemWrapper,
 } from './ListingListItem.styles';
-import Link from 'next/link';
-import { getListingThumbnail } from './ListingListItem.helpers';
-import { Text } from '@chakra-ui/react';
-import { formatPrice } from 'helpers/price.helpers';
 import { ListingListItemOverlay } from './ListingListItemOverlay/ListingListItemOverlay.component';
 
 type Props = {

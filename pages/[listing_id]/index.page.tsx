@@ -1,7 +1,7 @@
+import { ListingListLayout } from 'layouts/ListingListLayout';
 import type { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { getListingsFromMongo } from 'services/listings/listings.mongodb.service';
-import { ListingListLayout } from 'layouts/ListingListLayout';
 import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 
 const DetailedListingPage: NextPageWithLayout = () => {

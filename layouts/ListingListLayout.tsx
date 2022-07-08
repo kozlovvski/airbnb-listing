@@ -1,8 +1,8 @@
+import ListingList from 'components/listings/ListingList/ListingList.component';
+import { useRouter } from 'next/router';
+import { PropsWithChildren } from 'react';
 import { useQuery } from 'react-query';
 import { getListingsFromAPIRoute } from 'services/listings/listings.api.service';
-import ListingList from 'components/listings/ListingList/ListingList.component';
-import { PropsWithChildren } from 'react';
-import { useRouter } from 'next/router';
 
 /**
  * This Layout component is used to render listings in order to prevent
