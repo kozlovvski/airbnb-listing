@@ -1,3 +1,4 @@
+import { ChakraProvider } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
@@ -13,6 +14,8 @@ export const wrapper = <T extends unknown>({
   });
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider>{children}</ChakraProvider>
+    </QueryClientProvider>
   );
 };
