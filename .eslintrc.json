@@ -1,3 +1,9 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"]
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "plugins": ["unused-imports", "simple-import-sort"],
+  "rules": {
+    "unused-imports/no-unused-imports": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
+  }
 }
