@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { mockedListingList } from 'tests/data/listings';
 import { wrapper } from 'tests/testUtils';
+import { Listing } from 'typings/listings/Listing';
 
 import ListingList from './ListingList.component';
 

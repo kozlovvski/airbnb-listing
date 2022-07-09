@@ -1,7 +1,7 @@
+import { useGetListingsQuery } from 'generated/graphql-codegen';
 import { ListingListLayout } from 'layouts/ListingListLayout';
-import type { GetServerSideProps } from 'next';
+import type { GetStaticProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
-import { getListingsFromMongo } from 'services/listings/listings.mongodb.service';
 import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 
 const Home: NextPageWithLayout = () => {
@@ -10,9 +10,11 @@ const Home: NextPageWithLayout = () => {
 
 Home.getLayout = (page) => <ListingListLayout>{page}</ListingListLayout>;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery('listings', getListingsFromMongo);
+  queryClient.prefetchQuery(useGetListingsQuery.getKey(), () =>
+    useGetListingsQuery.fetcher()
+  );
 
   return {
     props: {

@@ -1,10 +1,4 @@
-type Listing = {
-  _id: string;
-  name: string;
-  summary: string;
-  price: number;
-  images: Record<
-    'thumbnail_url' | 'medium_url' | 'picture_url' | 'xl_picture_url',
-    string
-  >;
-};
+import { GetListingsQuery } from 'generated/graphql-codegen';
+
+export type Listing = GetListingsQuery['listingsAndReviews'][number];
+export type DefinedListing = NonNullable<Listing>;
