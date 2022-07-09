@@ -10,7 +10,7 @@ export const config = {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   httpProxyMiddleware(req, res, {
-    target: process.env.MONGO_GRAPHQL_ENDPOINT,
+    target: process.env.NEXT_APP_MONGO_GRAPHQL_ENDPOINT,
     changeOrigin: true,
     secure: false,
     pathRewrite: [
@@ -20,7 +20,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     ],
     headers: {
-      apiKey: process.env.MONGO_ATLAS_API_KEY || '',
+      apiKey: process.env.NEXT_APP_MONGO_ATLAS_API_KEY || '',
     },
   });
 }
