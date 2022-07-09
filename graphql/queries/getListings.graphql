@@ -1,0 +1,14 @@
+query getListings {
+  listingsAndReviews {
+    _id
+    name
+    summary
+    price
+    images {
+      medium_url
+      picture_url
+      thumbnail_url
+      xl_picture_url
+    }
+  }
+}

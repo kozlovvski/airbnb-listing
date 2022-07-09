@@ -1,4 +1,6 @@
-export const mockedListingList: Listing[] = [
+import { DefinedListing } from 'typings/listings/Listing';
+
+export const mockedListingList: DefinedListing[] = [
   {
     _id: '1',
     name: 'Listing 1',
@@ -25,7 +27,7 @@ export const mockedListingList: Listing[] = [
   },
 ];
 
-export const mockedListing: Listing = {
+export const mockedListing: DefinedListing = {
   _id: '1',
   name: 'Listing 1',
   price: 50,

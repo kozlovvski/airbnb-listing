@@ -1,6 +1,4 @@
-import { ListingsAndReview } from 'typings/vendors/graphql-codegen';
+import { GetListingsQuery } from 'generated/graphql-codegen';
 
-type Listing = Pick<
-  ListingsAndReview,
-  '_id' | 'name' | 'summary' | 'price' | 'images'
->;
+export type Listing = GetListingsQuery['listingsAndReviews'][number];
+export type DefinedListing = NonNullable<Listing>;

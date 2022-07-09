@@ -2,6 +2,7 @@ import { Text } from '@chakra-ui/react';
 import { formatPrice } from 'helpers/price.helpers';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
+import { DefinedListing } from 'typings/listings/Listing';
 
 import { getListingThumbnail } from './ListingListItem.helpers';
 import {
@@ -12,7 +13,7 @@ import {
 import { ListingListItemOverlay } from './ListingListItemOverlay/ListingListItemOverlay.component';
 
 type Props = {
-  listing: Listing;
+  listing: DefinedListing;
   isSelected: boolean;
 };
 

@@ -1,6 +1,16 @@
 overwrite: true
 schema: './graphql/schema.graphql'
+documents: './graphql/**/*.graphql'
 generates:
-  ./typings/vendors/graphql-codegen.d.ts:
+  ./generated/graphql-codegen.ts:
     plugins:
+      - add:
+          content: "import { endpoint } from '../graphql/graphql.constants';"
       - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher:
+        endpoint: 'endpoint'
+      exposeQueryKeys: true
+      exposeFetcher: true

@@ -1,3 +1,6 @@
+import { useQuery, UseQueryOptions } from 'react-query';
+
+import { endpoint } from '../graphql/graphql.constants';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -9,6 +12,25 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
+
+function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
+  return async (): Promise<TData> => {
+    const res = await fetch(endpoint as string, {
+      method: 'POST',
+      body: JSON.stringify({ query, variables }),
+    });
+
+    const json = await res.json();
+
+    if (json.errors) {
+      const { message } = json.errors[0];
+
+      throw new Error(message);
+    }
+
+    return json.data;
+  };
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -1375,3 +1397,60 @@ export type UpdateManyPayload = {
   matchedCount: Scalars['Int'];
   modifiedCount: Scalars['Int'];
 };
+
+export type GetListingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetListingsQuery = {
+  __typename?: 'Query';
+  listingsAndReviews: Array<{
+    __typename?: 'ListingsAndReview';
+    _id?: string | null;
+    name?: string | null;
+    summary?: string | null;
+    price?: any | null;
+    images?: {
+      __typename?: 'ListingsAndReviewImage';
+      medium_url?: string | null;
+      picture_url?: string | null;
+      thumbnail_url?: string | null;
+      xl_picture_url?: string | null;
+    } | null;
+  } | null>;
+};
+
+export const GetListingsDocument = `
+    query getListings {
+  listingsAndReviews {
+    _id
+    name
+    summary
+    price
+    images {
+      medium_url
+      picture_url
+      thumbnail_url
+      xl_picture_url
+    }
+  }
+}
+    `;
+export const useGetListingsQuery = <TData = GetListingsQuery, TError = unknown>(
+  variables?: GetListingsQueryVariables,
+  options?: UseQueryOptions<GetListingsQuery, TError, TData>
+) =>
+  useQuery<GetListingsQuery, TError, TData>(
+    variables === undefined ? ['getListings'] : ['getListings', variables],
+    fetcher<GetListingsQuery, GetListingsQueryVariables>(
+      GetListingsDocument,
+      variables
+    ),
+    options
+  );
+
+useGetListingsQuery.getKey = (variables?: GetListingsQueryVariables) =>
+  variables === undefined ? ['getListings'] : ['getListings', variables];
+useGetListingsQuery.fetcher = (variables?: GetListingsQueryVariables) =>
+  fetcher<GetListingsQuery, GetListingsQueryVariables>(
+    GetListingsDocument,
+    variables
+  );
