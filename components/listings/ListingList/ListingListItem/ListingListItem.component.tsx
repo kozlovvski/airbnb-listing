@@ -2,10 +2,12 @@ import { Badge, Flex, Text } from '@chakra-ui/react';
 import { MotionConfig, useMotionValue } from 'framer-motion';
 import { formatPrice } from 'helpers/price.helpers';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { DefinedListing } from 'typings/listings/Listing';
 
 import { getListingThumbnail, stringToColor } from './ListingListItem.helpers';
+import { useJSXForLocalizedCountable } from './ListingListItem.hooks';
 import {
   ListingListItemContent,
   ListingListItemContentWrapper,
@@ -21,20 +23,21 @@ type Props = {
 };
 
 const ANIMATION_DURATION = 500;
-const separator = (
-  <Text fontSize="xs" mx={1}>
-    •
-  </Text>
-);
 
 const ListingListItem = ({ listing, isSelected }: Props) => {
+  const { name, price, property_type, beds } = listing;
+  const bathrooms = listing.bathrooms ? Number(listing.bathrooms) : undefined;
+
+  const { t } = useTranslation();
   const contentRef = useRef<HTMLDivElement>(null);
+  const thumbnail = useMemo(() => getListingThumbnail(listing), [listing]);
+
   const y = useMotionValue(0);
   const borderWidth = useMotionValue(isSelected ? 0 : 1);
   const zIndex = useMotionValue(isSelected ? 2 : 0);
-  const thumbnail = useMemo(() => getListingThumbnail(listing), [listing]);
-  const { name, price, property_type, beds } = listing;
-  const bathrooms = listing.bathrooms ? Number(listing.bathrooms) : undefined;
+
+  const bathroomsJSX = useJSXForLocalizedCountable('bathroom', bathrooms);
+  const bedsJSX = useJSXForLocalizedCountable('bed', beds);
 
   useEffect(() => {
     if (!isSelected) {
@@ -47,24 +50,6 @@ const ListingListItem = ({ listing, isSelected }: Props) => {
       borderWidth.set(0);
     }
   }, [isSelected]);
-
-  const bedsContent = beds && (
-    <>
-      {separator}
-      <Text fontSize="xs">
-        {beds} bed{beds > 1 && 's'}
-      </Text>
-    </>
-  );
-
-  const bathroomsContent = bathrooms && (
-    <>
-      {separator}
-      <Text fontSize="xs">
-        {bathrooms} bathroom{bathrooms > 1 && 's'}
-      </Text>
-    </>
-  );
 
   return (
     <Link href={`/${listing._id}`} scroll={false}>
@@ -101,8 +86,8 @@ const ListingListItem = ({ listing, isSelected }: Props) => {
                   <Badge color={stringToColor(property_type)}>
                     {property_type}
                   </Badge>
-                  {bedsContent}
-                  {bathroomsContent}
+                  {bedsJSX}
+                  {bathroomsJSX}
                 </Flex>
                 <Text
                   fontWeight="bold"
@@ -115,8 +100,7 @@ const ListingListItem = ({ listing, isSelected }: Props) => {
                 <Text fontSize="sm">
                   {formatPrice(price)}
                   <Text as="span" color="gray.500">
-                    {' '}
-                    / night
+                    {` / ${t('listings:night')}`}
                   </Text>
                 </Text>
               </ListingListItemTextContainer>
