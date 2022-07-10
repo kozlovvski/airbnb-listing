@@ -19,7 +19,7 @@ const StyledComponent = styled(motion.div)<Props>`
 `;
 
 export const ListingListItemOverlay = ({ isSelected }: Props) => (
-  <Link href="/">
+  <Link href="/" scroll={false}>
     <StyledComponent
       isSelected={isSelected}
       initial={false}

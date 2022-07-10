@@ -1,50 +1,54 @@
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
 export const ListingListItemWrapper = styled.li`
+  display: flex;
+  flex-direction: column;
+  height: 237px;
   list-style-type: none;
 `;
 
-export const ListingListItemThumbnailWrapper = styled.div`
-  position: relative;
-  border-radius: ${({ theme }) => theme.radii.xl};
-  overflow: hidden;
-  margin-bottom: ${({ theme }) => theme.space[2]};
-
-  @supports (aspect-ratio: 1) {
-    aspect-ratio: 1;
-  }
-
-  @supports not (aspect-ratio: 1) {
-    ::after {
-      content: '';
-      display: block;
-      padding-bottom: 100%;
-    }
-  }
-
-  ::before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.3) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
-
-    pointer-events: none;
-  }
-`;
-
-export const ListingListItemThumbnail = styled.img`
-  position: absolute;
+export const ListingListItemContentWrapper = styled(motion.div)<{
+  isSelected?: boolean;
+}>`w
+  display: block;
   width: 100%;
   height: 100%;
+  position: relative;
+  pointer-events: none;
+  z-index: 0;
+
+  ${({ isSelected }) =>
+    isSelected &&
+    `
+    position: fixed;
+    overflow: hidden;
+    padding: 40px 20px;
+    top: 0;
+    left: 0;
+  `}
+`;
+
+export const ListingListItemContent = styled(motion.div)`
+  max-width: 700px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: ${({ theme }) => theme.radii.lg};
+  pointer-events: all;
+  background-color: ${({ theme }) => theme.colors.white};
+  list-style-type: none;
+`;
+
+export const ListingListItemThumbnail = styled(motion.img)<{
+  isSelected: boolean;
+}>`
+  width: 700px;
+  height: ${({ isSelected }) => (isSelected ? '300px' : '150px')};
+  object-position: 50% 50%;
   object-fit: cover;
+`;
+
+export const ListingListItemTextContainer = styled(motion.div)`
+  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
