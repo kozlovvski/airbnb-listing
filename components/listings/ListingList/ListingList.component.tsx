@@ -13,7 +13,7 @@ type Props = {
 };
 
 const ListingList = ({ pages, onSkeletonInView, selectedId }: Props) => {
-  const firstSkeletonRef = useRef<HTMLDivElement>(null);
+  const firstSkeletonRef = useRef<HTMLLIElement>(null);
   const isSkeletonInView = useInView(firstSkeletonRef);
 
   useEffect(() => {
@@ -22,20 +22,18 @@ const ListingList = ({ pages, onSkeletonInView, selectedId }: Props) => {
 
   return (
     <ListingListWrapper>
-      {pages &&
-        pages?.map(({ listings }) =>
-          listings
-            ? listings.map((listing) =>
-                listing ? (
-                  <ListingListItem
-                    listing={listing}
-                    key={listing._id}
-                    isSelected={listing._id === selectedId}
-                  />
-                ) : null
-              )
-            : null
-        )}
+      {pages?.map(({ listings }) =>
+        listings?.map(
+          (listing) =>
+            listing && (
+              <ListingListItem
+                listing={listing}
+                key={listing._id}
+                isSelected={listing._id === selectedId}
+              />
+            )
+        )
+      )}
       {[...Array(20)].map((_, i) => (
         <ListingListItemSkeleton
           ref={i === 0 ? firstSkeletonRef : null}
