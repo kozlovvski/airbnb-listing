@@ -3,7 +3,10 @@ query getListings($pageParam: Int) {
     _id
     name
     summary
+    property_type
     price
+    beds
+    bathrooms
     images {
       medium_url
       picture_url

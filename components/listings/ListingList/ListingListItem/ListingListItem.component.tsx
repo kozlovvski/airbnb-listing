@@ -1,11 +1,11 @@
-import { Text } from '@chakra-ui/react';
+import { Badge, Flex, Text } from '@chakra-ui/react';
 import { MotionConfig, useMotionValue } from 'framer-motion';
 import { formatPrice } from 'helpers/price.helpers';
 import Link from 'next/link';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { DefinedListing } from 'typings/listings/Listing';
 
-import { getListingThumbnail } from './ListingListItem.helpers';
+import { getListingThumbnail, stringToColor } from './ListingListItem.helpers';
 import {
   ListingListItemContent,
   ListingListItemContentWrapper,
@@ -21,6 +21,11 @@ type Props = {
 };
 
 const ANIMATION_DURATION = 500;
+const separator = (
+  <Text fontSize="xs" mx={1}>
+    •
+  </Text>
+);
 
 const ListingListItem = ({ listing, isSelected }: Props) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -28,7 +33,8 @@ const ListingListItem = ({ listing, isSelected }: Props) => {
   const borderWidth = useMotionValue(isSelected ? 0 : 1);
   const zIndex = useMotionValue(isSelected ? 2 : 0);
   const thumbnail = useMemo(() => getListingThumbnail(listing), [listing]);
-  const { name, price } = listing;
+  const { name, price, property_type, beds } = listing;
+  const bathrooms = listing.bathrooms ? Number(listing.bathrooms) : undefined;
 
   useEffect(() => {
     if (!isSelected) {
@@ -41,6 +47,24 @@ const ListingListItem = ({ listing, isSelected }: Props) => {
       borderWidth.set(0);
     }
   }, [isSelected]);
+
+  const bedsContent = beds && (
+    <>
+      {separator}
+      <Text fontSize="xs">
+        {beds} bed{beds > 1 && 's'}
+      </Text>
+    </>
+  );
+
+  const bathroomsContent = bathrooms && (
+    <>
+      {separator}
+      <Text fontSize="xs">
+        {bathrooms} bathroom{bathrooms > 1 && 's'}
+      </Text>
+    </>
+  );
 
   return (
     <Link href={`/${listing._id}`} scroll={false}>
@@ -73,6 +97,13 @@ const ListingListItem = ({ listing, isSelected }: Props) => {
                 isSelected={isSelected}
               />
               <ListingListItemTextContainer layout="position">
+                <Flex mb={1}>
+                  <Badge color={stringToColor(property_type)}>
+                    {property_type}
+                  </Badge>
+                  {bedsContent}
+                  {bathroomsContent}
+                </Flex>
                 <Text
                   fontWeight="bold"
                   textOverflow="ellipsis"

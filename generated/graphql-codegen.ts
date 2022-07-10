@@ -1340,7 +1340,10 @@ export type GetListingsQuery = {
     _id?: string | null;
     name?: string | null;
     summary?: string | null;
+    property_type?: string | null;
     price?: any | null;
+    beds?: number | null;
+    bathrooms?: any | null;
     images?: {
       __typename?: 'ListingsAndReviewImage';
       medium_url?: string | null;
@@ -1357,7 +1360,10 @@ export const GetListingsDocument = `
     _id
     name
     summary
+    property_type
     price
+    beds
+    bathrooms
     images {
       medium_url
       picture_url

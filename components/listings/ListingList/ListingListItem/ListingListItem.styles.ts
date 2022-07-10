@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export const ListingListItemWrapper = styled.li`
   display: flex;
   flex-direction: column;
-  height: 237px;
+  height: 259px;
   list-style-type: none;
 `;
 

@@ -17,9 +17,11 @@ const ListingListItemSkeleton = forwardRef<HTMLLIElement>((props, ref) => {
       }}
       {...props}
     >
-      <Skeleton w="100%" h="150px" />
+      <Skeleton w="100%" h="150px" borderRadius={0} />
       <Box p={4}>
-        <SkeletonText mt={2} skeletonHeight={4} lineHeight={2} noOfLines={2} />
+        <SkeletonText mt={2} skeletonHeight={3} noOfLines={1} w={20} />
+        <SkeletonText mt={2} skeletonHeight={5} noOfLines={1} />
+        <SkeletonText mt={2} skeletonHeight={3} noOfLines={1} w={40} />
       </Box>
     </ListingListItemWrapper>
   );
