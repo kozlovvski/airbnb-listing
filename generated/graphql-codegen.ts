@@ -49,8 +49,7 @@ export type DeleteManyPayload = {
 };
 
 export type GetListingsFuncInput = {
-  limit?: InputMaybe<Scalars['Float']>;
-  offset?: InputMaybe<Scalars['Float']>;
+  page?: InputMaybe<Scalars['Int']>;
 };
 
 export type InsertManyPayload = {
@@ -1331,12 +1330,12 @@ export type UpdateManyPayload = {
 };
 
 export type GetListingsQueryVariables = Exact<{
-  limitAndOffset?: InputMaybe<GetListingsFuncInput>;
+  pageParam?: InputMaybe<Scalars['Int']>;
 }>;
 
 export type GetListingsQuery = {
   __typename?: 'Query';
-  listingsAndReviews?: Array<{
+  listings?: Array<{
     __typename?: 'ListingsAndReview';
     _id?: string | null;
     name?: string | null;
@@ -1353,8 +1352,8 @@ export type GetListingsQuery = {
 };
 
 export const GetListingsDocument = `
-    query getListings($limitAndOffset: GetListingsFuncInput) {
-  listingsAndReviews(input: $limitAndOffset) {
+    query getListings($pageParam: Int) {
+  listings: listingsAndReviews(input: {page: $pageParam}) {
     _id
     name
     summary

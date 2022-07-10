@@ -1,5 +1,6 @@
+import { Button } from '@chakra-ui/react';
 import ListingList from 'components/listings/ListingList/ListingList.component';
-import { useGetListingsQuery } from 'generated/graphql-codegen';
+import { useInfiniteGetListingsQuery } from 'components/listings/ListingList/ListingList.hooks';
 import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
 
@@ -8,7 +9,16 @@ import { PropsWithChildren } from 'react';
  * rerenders while changing the page.
  */
 export const ListingListLayout = ({ children }: PropsWithChildren) => {
-  const { data } = useGetListingsQuery();
+  const { data, fetchNextPage } = useInfiniteGetListingsQuery(
+    {
+      pageParam: 0,
+    },
+    {
+      getNextPageParam: (_lastpage, pages) => {
+        return pages.length;
+      },
+    }
+  );
   const { listing_id } = useRouter().query;
 
   if (Array.isArray(listing_id)) {
@@ -16,13 +26,10 @@ export const ListingListLayout = ({ children }: PropsWithChildren) => {
     return null;
   }
 
-  const listings = data?.listingsAndReviews;
-
   return (
     <div>
-      {listings && listings.length > 0 && (
-        <ListingList listings={listings} selectedId={listing_id} />
-      )}
+      <ListingList pages={data?.pages} selectedId={listing_id} />
+      <Button onClick={() => fetchNextPage()}>Load more results</Button>
       {children}
     </div>
   );

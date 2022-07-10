@@ -1,3 +1,4 @@
+import { GetListingsQuery } from 'generated/graphql-codegen';
 import { DefinedListing } from 'typings/listings/Listing';
 
 export const mockedListingList: DefinedListing[] = [
@@ -27,15 +28,10 @@ export const mockedListingList: DefinedListing[] = [
   },
 ];
 
-export const mockedListing: DefinedListing = {
-  _id: '1',
-  name: 'Listing 1',
-  price: 50,
-  images: {
-    thumbnail_url: 'https://via.placeholder.com/150',
-    medium_url: 'https://via.placeholder.com/250',
-    picture_url: 'https://via.placeholder.com/350',
-    xl_picture_url: 'https://via.placeholder.com/450',
+export const mockedListing: DefinedListing = mockedListingList[0];
+
+export const mockedListingListPages: GetListingsQuery[] = [
+  {
+    listings: mockedListingList,
   },
-  summary: 'Lorem ipsum',
-};
+];
