@@ -1,5 +1,5 @@
-query getListings($limitAndOffset: GetListingsFuncInput) {
-  listingsAndReviews(input: $limitAndOffset) {
+query getListings($pageParam: Int) {
+  listings: listingsAndReviews(input: { page: $pageParam }) {
     _id
     name
     summary

@@ -1,3 +1,4 @@
+import { useInfiniteGetListingsQuery } from 'components/listings/ListingList/ListingList.hooks';
 import { useGetListingsQuery } from 'generated/graphql-codegen';
 import { ListingListLayout } from 'layouts/ListingListLayout';
 import type { GetStaticProps } from 'next';
@@ -12,7 +13,7 @@ Home.getLayout = (page) => <ListingListLayout>{page}</ListingListLayout>;
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
-  queryClient.prefetchQuery(useGetListingsQuery.getKey(), () =>
+  queryClient.prefetchQuery(useInfiniteGetListingsQuery.getKey(), () =>
     useGetListingsQuery.fetcher()
   );
 

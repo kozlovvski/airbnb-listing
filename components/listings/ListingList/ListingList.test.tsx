@@ -1,17 +1,21 @@
-import { render } from '@testing-library/react';
-import { mockedListingList } from 'tests/data/listings';
+import { cleanup, render } from '@testing-library/react';
+import { GetListingsQuery } from 'generated/graphql-codegen';
+import { mockedListingListPages } from 'tests/data/listings';
 import { wrapper } from 'tests/testUtils';
-import { Listing } from 'typings/listings/Listing';
 
 import ListingList from './ListingList.component';
 
 describe('ListingList', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('should render a list', () => {
     // given
-    const listings: Listing[] = [];
+    const listings: GetListingsQuery[] = [];
 
     // when
-    const result = render(<ListingList listings={listings} />, {
+    const result = render(<ListingList pages={listings} />, {
       wrapper,
     });
 
@@ -21,14 +25,14 @@ describe('ListingList', () => {
 
   it('should render correct number of elements', () => {
     // given
-    const listings = mockedListingList;
+    const pages: GetListingsQuery[] = mockedListingListPages;
 
     // when
-    const result = render(<ListingList listings={listings} />, {
+    const result = render(<ListingList pages={pages} />, {
       wrapper,
     });
 
     // then
-    expect(result.getAllByRole('listitem')).toHaveLength(2);
+    expect(result.getAllByTestId('listing-list-item')).toHaveLength(2);
   });
 });

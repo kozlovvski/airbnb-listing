@@ -23,7 +23,7 @@ const ListingListItem = ({ listing, isSelected }: Props) => {
 
   return (
     <Link href={`/${listing._id}`}>
-      <ListingListItemWrapper>
+      <ListingListItemWrapper data-testid="listing-list-item">
         <ListingListItemOverlay isSelected={isSelected} />
         <ListingListItemThumbnailWrapper>
           <ListingListItemThumbnail src={thumbnail} />

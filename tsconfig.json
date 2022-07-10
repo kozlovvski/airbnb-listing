@@ -16,6 +16,12 @@
     "incremental": true,
     "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/api/index.page.js",
+    "graphql/graphql.constants.js"
+  ],
   "exclude": ["node_modules"]
 }
