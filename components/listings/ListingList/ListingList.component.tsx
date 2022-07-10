@@ -17,7 +17,7 @@ const ListingList = ({ pages, onSkeletonInView, selectedId }: Props) => {
   const isSkeletonInView = useInView(firstSkeletonRef);
 
   useEffect(() => {
-    // isSkeletonInView && onSkeletonInView();
+    isSkeletonInView && onSkeletonInView();
   }, [isSkeletonInView, onSkeletonInView]);
 
   return (
