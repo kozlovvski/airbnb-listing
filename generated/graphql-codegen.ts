@@ -48,6 +48,11 @@ export type DeleteManyPayload = {
   deletedCount: Scalars['Int'];
 };
 
+export type GetListingsFuncInput = {
+  limit?: InputMaybe<Scalars['Float']>;
+  offset?: InputMaybe<Scalars['Float']>;
+};
+
 export type InsertManyPayload = {
   __typename?: 'InsertManyPayload';
   insertedIds: Array<Maybe<Scalars['ObjectId']>>;
@@ -1168,77 +1173,6 @@ export type ListingsAndReviewReview_ScoreUpdateInput = {
   review_scores_value_unset?: InputMaybe<Scalars['Boolean']>;
 };
 
-export enum ListingsAndReviewSortByInput {
-  AccessAsc = 'ACCESS_ASC',
-  AccessDesc = 'ACCESS_DESC',
-  AccommodatesAsc = 'ACCOMMODATES_ASC',
-  AccommodatesDesc = 'ACCOMMODATES_DESC',
-  BathroomsAsc = 'BATHROOMS_ASC',
-  BathroomsDesc = 'BATHROOMS_DESC',
-  BedroomsAsc = 'BEDROOMS_ASC',
-  BedroomsDesc = 'BEDROOMS_DESC',
-  BedsAsc = 'BEDS_ASC',
-  BedsDesc = 'BEDS_DESC',
-  BedTypeAsc = 'BED_TYPE_ASC',
-  BedTypeDesc = 'BED_TYPE_DESC',
-  CalendarLastScrapedAsc = 'CALENDAR_LAST_SCRAPED_ASC',
-  CalendarLastScrapedDesc = 'CALENDAR_LAST_SCRAPED_DESC',
-  CancellationPolicyAsc = 'CANCELLATION_POLICY_ASC',
-  CancellationPolicyDesc = 'CANCELLATION_POLICY_DESC',
-  CleaningFeeAsc = 'CLEANING_FEE_ASC',
-  CleaningFeeDesc = 'CLEANING_FEE_DESC',
-  DescriptionAsc = 'DESCRIPTION_ASC',
-  DescriptionDesc = 'DESCRIPTION_DESC',
-  ExtraPeopleAsc = 'EXTRA_PEOPLE_ASC',
-  ExtraPeopleDesc = 'EXTRA_PEOPLE_DESC',
-  FirstReviewAsc = 'FIRST_REVIEW_ASC',
-  FirstReviewDesc = 'FIRST_REVIEW_DESC',
-  GuestsIncludedAsc = 'GUESTS_INCLUDED_ASC',
-  GuestsIncludedDesc = 'GUESTS_INCLUDED_DESC',
-  HouseRulesAsc = 'HOUSE_RULES_ASC',
-  HouseRulesDesc = 'HOUSE_RULES_DESC',
-  InteractionAsc = 'INTERACTION_ASC',
-  InteractionDesc = 'INTERACTION_DESC',
-  LastReviewAsc = 'LAST_REVIEW_ASC',
-  LastReviewDesc = 'LAST_REVIEW_DESC',
-  LastScrapedAsc = 'LAST_SCRAPED_ASC',
-  LastScrapedDesc = 'LAST_SCRAPED_DESC',
-  ListingUrlAsc = 'LISTING_URL_ASC',
-  ListingUrlDesc = 'LISTING_URL_DESC',
-  MaximumNightsAsc = 'MAXIMUM_NIGHTS_ASC',
-  MaximumNightsDesc = 'MAXIMUM_NIGHTS_DESC',
-  MinimumNightsAsc = 'MINIMUM_NIGHTS_ASC',
-  MinimumNightsDesc = 'MINIMUM_NIGHTS_DESC',
-  MonthlyPriceAsc = 'MONTHLY_PRICE_ASC',
-  MonthlyPriceDesc = 'MONTHLY_PRICE_DESC',
-  NameAsc = 'NAME_ASC',
-  NameDesc = 'NAME_DESC',
-  NeighborhoodOverviewAsc = 'NEIGHBORHOOD_OVERVIEW_ASC',
-  NeighborhoodOverviewDesc = 'NEIGHBORHOOD_OVERVIEW_DESC',
-  NotesAsc = 'NOTES_ASC',
-  NotesDesc = 'NOTES_DESC',
-  NumberOfReviewsAsc = 'NUMBER_OF_REVIEWS_ASC',
-  NumberOfReviewsDesc = 'NUMBER_OF_REVIEWS_DESC',
-  PriceAsc = 'PRICE_ASC',
-  PriceDesc = 'PRICE_DESC',
-  PropertyTypeAsc = 'PROPERTY_TYPE_ASC',
-  PropertyTypeDesc = 'PROPERTY_TYPE_DESC',
-  RoomTypeAsc = 'ROOM_TYPE_ASC',
-  RoomTypeDesc = 'ROOM_TYPE_DESC',
-  SecurityDepositAsc = 'SECURITY_DEPOSIT_ASC',
-  SecurityDepositDesc = 'SECURITY_DEPOSIT_DESC',
-  SpaceAsc = 'SPACE_ASC',
-  SpaceDesc = 'SPACE_DESC',
-  SummaryAsc = 'SUMMARY_ASC',
-  SummaryDesc = 'SUMMARY_DESC',
-  TransitAsc = 'TRANSIT_ASC',
-  TransitDesc = 'TRANSIT_DESC',
-  WeeklyPriceAsc = 'WEEKLY_PRICE_ASC',
-  WeeklyPriceDesc = 'WEEKLY_PRICE_DESC',
-  IdAsc = '_ID_ASC',
-  IdDesc = '_ID_DESC',
-}
-
 export type ListingsAndReviewUpdateInput = {
   _id?: InputMaybe<Scalars['String']>;
   _id_unset?: InputMaybe<Scalars['Boolean']>;
@@ -1379,7 +1313,7 @@ export type MutationUpsertOneListingsAndReviewArgs = {
 export type Query = {
   __typename?: 'Query';
   listingsAndReview?: Maybe<ListingsAndReview>;
-  listingsAndReviews: Array<Maybe<ListingsAndReview>>;
+  listingsAndReviews?: Maybe<Array<Maybe<ListingsAndReview>>>;
 };
 
 export type QueryListingsAndReviewArgs = {
@@ -1387,9 +1321,7 @@ export type QueryListingsAndReviewArgs = {
 };
 
 export type QueryListingsAndReviewsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  query?: InputMaybe<ListingsAndReviewQueryInput>;
-  sortBy?: InputMaybe<ListingsAndReviewSortByInput>;
+  input?: InputMaybe<GetListingsFuncInput>;
 };
 
 export type UpdateManyPayload = {
@@ -1398,11 +1330,13 @@ export type UpdateManyPayload = {
   modifiedCount: Scalars['Int'];
 };
 
-export type GetListingsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetListingsQueryVariables = Exact<{
+  limitAndOffset?: InputMaybe<GetListingsFuncInput>;
+}>;
 
 export type GetListingsQuery = {
   __typename?: 'Query';
-  listingsAndReviews: Array<{
+  listingsAndReviews?: Array<{
     __typename?: 'ListingsAndReview';
     _id?: string | null;
     name?: string | null;
@@ -1415,12 +1349,12 @@ export type GetListingsQuery = {
       thumbnail_url?: string | null;
       xl_picture_url?: string | null;
     } | null;
-  } | null>;
+  } | null> | null;
 };
 
 export const GetListingsDocument = `
-    query getListings {
-  listingsAndReviews {
+    query getListings($limitAndOffset: GetListingsFuncInput) {
+  listingsAndReviews(input: $limitAndOffset) {
     _id
     name
     summary
