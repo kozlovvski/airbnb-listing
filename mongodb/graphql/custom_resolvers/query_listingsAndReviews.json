@@ -3,10 +3,7 @@
     "function_name": "getListingsFunc",
     "input_type": {
         "properties": {
-            "limit": {
-                "type": "number"
-            },
-            "offset": {
+            "page": {
                 "type": "number"
             }
         },
