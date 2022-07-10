@@ -30,7 +30,16 @@ export const mockedListingList: DefinedListing[] = [
 
 export const mockedListing: DefinedListing = mockedListingList[0];
 
-export const mockedListingListPages: GetListingsQuery[] = [
+export const mockedListingListPagesWithOne: GetListingsQuery[] = [
+  {
+    listings: mockedListingList,
+  },
+];
+
+export const mockedListingListPagesWithMultiple: GetListingsQuery[] = [
+  {
+    listings: mockedListingList,
+  },
   {
     listings: mockedListingList,
   },
