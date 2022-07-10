@@ -4,7 +4,7 @@
     "input_type": {
         "properties": {
             "page": {
-                "type": "number"
+                "bsonType": "int"
             }
         },
         "title": "getListingsFuncInput",
