@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/kozlovvski/airbnb-listing/compare/v0.1.0...v0.1.1) (2022-07-10)
+
+
+### Bug Fixes
+
+* increase min listing card width to improve responsiveness ([35c0660](https://github.com/kozlovvski/airbnb-listing/commit/35c0660c773b9968f231e816be81feb02eb5b851))
+
 ## 0.1.0 (2022-07-10)
 
 
