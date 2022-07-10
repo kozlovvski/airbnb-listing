@@ -1,5 +1,5 @@
 {
-    "field_name": "listings",
+    "field_name": "listingsAndReviews",
     "function_name": "getListingsFunc",
     "input_type": {
         "properties": {
