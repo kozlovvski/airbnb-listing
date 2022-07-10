@@ -1,0 +1,20 @@
+{
+    "field_name": "listingsAndReviews",
+    "function_name": "getListingsFunc",
+    "input_type": {
+        "properties": {
+            "limit": {
+                "type": "number"
+            },
+            "offset": {
+                "type": "number"
+            }
+        },
+        "title": "getListingsFuncInput",
+        "type": "object"
+    },
+    "input_type_format": "custom",
+    "on_type": "Query",
+    "payload_type": "ListingsAndReview",
+    "payload_type_format": "generated-list"
+}
