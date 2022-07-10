@@ -1,71 +1,124 @@
-type DeleteManyPayload {
-  deletedCount: Int!
+scalar ObjectId
+
+type Query {
+  listingsAndReview(query: ListingsAndReviewQueryInput): ListingsAndReview
+  listingsAndReviews(input: GetListingsFuncInput): [ListingsAndReview]
 }
 
-input ListingsAndReviewAddressLocationUpdateInput {
-  is_location_exact: Boolean
-  is_location_exact_unset: Boolean
-  type: String
-  type_unset: Boolean
+input ListingsAndReviewAddressLocationInsertInput {
   coordinates: [Float]
-  coordinates_unset: Boolean
+  is_location_exact: Boolean
+  type: String
 }
 
-type InsertManyPayload {
-  insertedIds: [ObjectId]!
+input ListingsAndReviewReview_scoreInsertInput {
+  review_scores_rating: Int
+  review_scores_value: Int
+  review_scores_accuracy: Int
+  review_scores_checkin: Int
+  review_scores_cleanliness: Int
+  review_scores_communication: Int
+  review_scores_location: Int
 }
 
-input ListingsAndReviewInsertInput {
-  host: ListingsAndReviewHostInsertInput
-  guests_included: Decimal
-  calendar_last_scraped: DateTime
-  description: String
-  neighborhood_overview: String
-  last_scraped: DateTime
-  listing_url: String
-  review_scores: ListingsAndReviewReview_scoreInsertInput
-  accommodates: Int
-  notes: String
-  name: String
-  transit: String
-  cancellation_policy: String
-  first_review: DateTime
-  space: String
-  address: ListingsAndReviewAddressInsertInput
-  minimum_nights: String
-  access: String
-  bedrooms: Int
-  extra_people: Decimal
-  bathrooms: Decimal
-  room_type: String
-  last_review: DateTime
-  interaction: String
-  property_type: String
-  monthly_price: Decimal
-  weekly_price: Decimal
-  maximum_nights: String
-  security_deposit: Decimal
-  summary: String
-  cleaning_fee: Decimal
-  amenities: [String]
-  bed_type: String
-  price: Decimal
-  number_of_reviews: Int
-  images: ListingsAndReviewImageInsertInput
-  beds: Int
-  house_rules: String
-  availability: ListingsAndReviewAvailabilityInsertInput
-  reviews: [ListingsAndReviewReviewInsertInput]
-  _id: String
+input ListingsAndReviewAddressUpdateInput {
+  street: String
+  government_area: String
+  market: String
+  street_unset: Boolean
+  country_code: String
+  suburb_unset: Boolean
+  country_code_unset: Boolean
+  country_unset: Boolean
+  location: ListingsAndReviewAddressLocationUpdateInput
+  market_unset: Boolean
+  location_unset: Boolean
+  country: String
+  government_area_unset: Boolean
+  suburb: String
 }
 
-input ListingsAndReviewReviewInsertInput {
-  reviewer_name: String
-  _id: String
-  comments: String
-  date: DateTime
-  listing_id: String
-  reviewer_id: String
+type UpdateManyPayload {
+  matchedCount: Int!
+  modifiedCount: Int!
+}
+
+input ListingsAndReviewAddressInsertInput {
+  location: ListingsAndReviewAddressLocationInsertInput
+  market: String
+  street: String
+  suburb: String
+  country: String
+  country_code: String
+  government_area: String
+}
+
+input ListingsAndReviewReview_scoreQueryInput {
+  review_scores_communication_gte: Int
+  review_scores_value: Int
+  review_scores_accuracy_lt: Int
+  review_scores_communication_ne: Int
+  review_scores_accuracy_in: [Int]
+  review_scores_communication_exists: Boolean
+  review_scores_rating_ne: Int
+  review_scores_cleanliness_nin: [Int]
+  review_scores_rating: Int
+  review_scores_communication_gt: Int
+  review_scores_location_ne: Int
+  review_scores_checkin_lte: Int
+  review_scores_communication_lt: Int
+  review_scores_communication_in: [Int]
+  review_scores_rating_in: [Int]
+  review_scores_checkin_exists: Boolean
+  review_scores_location_lte: Int
+  review_scores_value_exists: Boolean
+  review_scores_rating_lte: Int
+  review_scores_value_lt: Int
+  review_scores_location_gte: Int
+  review_scores_accuracy_lte: Int
+  review_scores_accuracy_gte: Int
+  review_scores_checkin: Int
+  review_scores_cleanliness_in: [Int]
+  review_scores_location_lt: Int
+  review_scores_checkin_lt: Int
+  review_scores_checkin_in: [Int]
+  review_scores_cleanliness_lte: Int
+  review_scores_value_nin: [Int]
+  review_scores_rating_gte: Int
+  review_scores_accuracy_exists: Boolean
+  review_scores_location_in: [Int]
+  review_scores_location_gt: Int
+  review_scores_value_gte: Int
+  review_scores_rating_exists: Boolean
+  review_scores_communication: Int
+  review_scores_location_nin: [Int]
+  review_scores_cleanliness_gt: Int
+  review_scores_cleanliness_ne: Int
+  review_scores_checkin_nin: [Int]
+  review_scores_value_ne: Int
+  review_scores_accuracy: Int
+  review_scores_value_lte: Int
+  review_scores_location_exists: Boolean
+  review_scores_accuracy_ne: Int
+  OR: [ListingsAndReviewReview_scoreQueryInput!]
+  review_scores_cleanliness: Int
+  review_scores_rating_gt: Int
+  review_scores_checkin_ne: Int
+  review_scores_accuracy_nin: [Int]
+  review_scores_location: Int
+  review_scores_value_gt: Int
+  review_scores_rating_nin: [Int]
+  review_scores_cleanliness_lt: Int
+  review_scores_checkin_gt: Int
+  review_scores_checkin_gte: Int
+  review_scores_cleanliness_exists: Boolean
+  review_scores_value_in: [Int]
+  review_scores_rating_lt: Int
+  review_scores_accuracy_gt: Int
+  review_scores_cleanliness_gte: Int
+  review_scores_communication_nin: [Int]
+  review_scores_communication_lte: Int
+  AND: [ListingsAndReviewReview_scoreQueryInput!]
 }
 
 type ListingsAndReviewImage {
@@ -75,461 +128,108 @@ type ListingsAndReviewImage {
   xl_picture_url: String
 }
 
-input ListingsAndReviewReviewUpdateInput {
-  reviewer_name_unset: Boolean
-  comments: String
-  date_unset: Boolean
-  reviewer_id: String
-  reviewer_id_unset: Boolean
-  _id_unset: Boolean
-  listing_id_unset: Boolean
-  reviewer_name: String
-  listing_id: String
-  _id: String
-  comments_unset: Boolean
-  date: DateTime
-}
-
-input ListingsAndReviewImageInsertInput {
-  xl_picture_url: String
-  medium_url: String
-  picture_url: String
-  thumbnail_url: String
-}
-
-type Query {
-  listingsAndReview(query: ListingsAndReviewQueryInput): ListingsAndReview
-  listingsAndReviews(limit: Int = 100, sortBy: ListingsAndReviewSortByInput, query: ListingsAndReviewQueryInput): [ListingsAndReview]!
-}
-
-type Mutation {
-  deleteManyListingsAndReviews(query: ListingsAndReviewQueryInput): DeleteManyPayload
-  deleteOneListingsAndReview(query: ListingsAndReviewQueryInput!): ListingsAndReview
-  insertManyListingsAndReviews(data: [ListingsAndReviewInsertInput!]!): InsertManyPayload
-  insertOneListingsAndReview(data: ListingsAndReviewInsertInput!): ListingsAndReview
-  replaceOneListingsAndReview(query: ListingsAndReviewQueryInput, data: ListingsAndReviewInsertInput!): ListingsAndReview
-  updateManyListingsAndReviews(query: ListingsAndReviewQueryInput, set: ListingsAndReviewUpdateInput!): UpdateManyPayload
-  updateOneListingsAndReview(query: ListingsAndReviewQueryInput, set: ListingsAndReviewUpdateInput!): ListingsAndReview
-  upsertOneListingsAndReview(query: ListingsAndReviewQueryInput, data: ListingsAndReviewInsertInput!): ListingsAndReview
-}
-
-input ListingsAndReviewAddressInsertInput {
-  suburb: String
-  country: String
-  country_code: String
-  government_area: String
-  location: ListingsAndReviewAddressLocationInsertInput
-  market: String
-  street: String
-}
-
-input ListingsAndReviewAvailabilityInsertInput {
-  availability_30: Int
-  availability_365: Int
-  availability_60: Int
-  availability_90: Int
-}
-
-input ListingsAndReviewReview_scoreQueryInput {
-  review_scores_accuracy_in: [Int]
-  review_scores_value: Int
-  review_scores_checkin_gt: Int
-  review_scores_value_lt: Int
-  review_scores_cleanliness_exists: Boolean
-  review_scores_rating_exists: Boolean
-  review_scores_accuracy: Int
-  review_scores_cleanliness: Int
-  review_scores_communication_exists: Boolean
-  OR: [ListingsAndReviewReview_scoreQueryInput!]
-  review_scores_accuracy_gt: Int
-  review_scores_cleanliness_lte: Int
-  review_scores_checkin_exists: Boolean
-  review_scores_rating_in: [Int]
-  review_scores_rating: Int
-  review_scores_checkin_lte: Int
-  review_scores_value_in: [Int]
-  review_scores_accuracy_exists: Boolean
-  review_scores_rating_ne: Int
-  review_scores_communication_gte: Int
-  review_scores_location_gte: Int
-  review_scores_rating_gte: Int
-  review_scores_rating_gt: Int
-  review_scores_value_lte: Int
-  review_scores_checkin: Int
-  review_scores_checkin_ne: Int
-  review_scores_rating_nin: [Int]
-  review_scores_accuracy_nin: [Int]
-  review_scores_cleanliness_nin: [Int]
-  review_scores_location_gt: Int
-  review_scores_communication_ne: Int
-  review_scores_value_gte: Int
-  AND: [ListingsAndReviewReview_scoreQueryInput!]
-  review_scores_location_nin: [Int]
-  review_scores_cleanliness_ne: Int
-  review_scores_cleanliness_gt: Int
-  review_scores_checkin_in: [Int]
-  review_scores_location_exists: Boolean
-  review_scores_accuracy_ne: Int
-  review_scores_communication_nin: [Int]
-  review_scores_cleanliness_gte: Int
-  review_scores_location: Int
-  review_scores_communication_lt: Int
-  review_scores_location_ne: Int
-  review_scores_checkin_lt: Int
-  review_scores_accuracy_lt: Int
-  review_scores_communication_gt: Int
-  review_scores_location_in: [Int]
-  review_scores_checkin_nin: [Int]
-  review_scores_accuracy_gte: Int
-  review_scores_communication: Int
-  review_scores_rating_lt: Int
-  review_scores_value_ne: Int
-  review_scores_rating_lte: Int
-  review_scores_value_gt: Int
-  review_scores_location_lt: Int
-  review_scores_value_nin: [Int]
-  review_scores_accuracy_lte: Int
-  review_scores_value_exists: Boolean
-  review_scores_cleanliness_lt: Int
-  review_scores_cleanliness_in: [Int]
-  review_scores_location_lte: Int
-  review_scores_communication_in: [Int]
-  review_scores_checkin_gte: Int
-  review_scores_communication_lte: Int
-}
-
-input ListingsAndReviewAvailabilityUpdateInput {
-  availability_30: Int
-  availability_30_unset: Boolean
-  availability_60_unset: Boolean
-  availability_30_inc: Int
-  availability_365_unset: Boolean
-  availability_60: Int
-  availability_90: Int
-  availability_90_unset: Boolean
-  availability_60_inc: Int
-  availability_90_inc: Int
-  availability_365: Int
-  availability_365_inc: Int
-}
-
-input ListingsAndReviewAvailabilityQueryInput {
-  availability_30_nin: [Int]
-  availability_60_gte: Int
-  availability_90_in: [Int]
-  availability_365_in: [Int]
-  availability_60_gt: Int
-  availability_60_lt: Int
-  availability_90_ne: Int
-  availability_30_exists: Boolean
-  availability_30_in: [Int]
-  availability_30: Int
-  availability_30_gte: Int
-  availability_365_gt: Int
-  availability_60_lte: Int
-  availability_90_exists: Boolean
-  availability_90_lt: Int
-  availability_60_in: [Int]
-  availability_30_gt: Int
-  availability_365: Int
-  availability_60_ne: Int
-  availability_90: Int
-  availability_60_exists: Boolean
-  availability_365_nin: [Int]
-  availability_90_gt: Int
-  availability_365_lte: Int
-  availability_60: Int
-  AND: [ListingsAndReviewAvailabilityQueryInput!]
-  availability_365_ne: Int
-  availability_30_ne: Int
-  availability_365_gte: Int
-  availability_90_nin: [Int]
-  availability_365_lt: Int
-  availability_90_lte: Int
-  availability_90_gte: Int
-  availability_30_lt: Int
-  availability_60_nin: [Int]
-  availability_365_exists: Boolean
-  OR: [ListingsAndReviewAvailabilityQueryInput!]
-  availability_30_lte: Int
-}
-
-input ListingsAndReviewAddressQueryInput {
-  country_code_gt: String
-  market_gt: String
-  street_nin: [String]
-  country_code_lte: String
-  suburb_exists: Boolean
-  AND: [ListingsAndReviewAddressQueryInput!]
-  suburb_ne: String
-  country_code_lt: String
-  country_ne: String
-  government_area_lte: String
-  suburb_gt: String
-  government_area_gt: String
-  country_code_ne: String
-  country_code_gte: String
-  street_in: [String]
-  country_gt: String
-  suburb_lte: String
-  street_ne: String
-  suburb: String
-  market_exists: Boolean
-  market_nin: [String]
-  government_area_gte: String
-  location_exists: Boolean
-  government_area_in: [String]
-  market_ne: String
-  government_area_exists: Boolean
-  suburb_in: [String]
-  country_lt: String
-  country_nin: [String]
-  market_lt: String
-  market_in: [String]
-  street_exists: Boolean
-  street_lte: String
-  government_area_nin: [String]
-  country_exists: Boolean
-  market_lte: String
-  government_area: String
-  country_lte: String
-  street_gte: String
-  country: String
-  suburb_nin: [String]
-  country_gte: String
-  suburb_lt: String
-  street_gt: String
-  country_code_nin: [String]
-  street: String
-  country_code_in: [String]
-  country_code: String
-  government_area_ne: String
-  government_area_lt: String
-  market_gte: String
-  country_in: [String]
-  country_code_exists: Boolean
-  location: ListingsAndReviewAddressLocationQueryInput
-  suburb_gte: String
-  OR: [ListingsAndReviewAddressQueryInput!]
-  street_lt: String
-  market: String
-}
-
 input ListingsAndReviewReviewQueryInput {
-  date_lt: DateTime
-  _id: String
-  _id_gt: String
-  comments_nin: [String]
-  date_exists: Boolean
   _id_exists: Boolean
-  date_in: [DateTime]
-  reviewer_name_in: [String]
-  reviewer_name_nin: [String]
-  listing_id_lte: String
-  reviewer_id_nin: [String]
-  reviewer_name_gte: String
-  reviewer_name_exists: Boolean
-  _id_lt: String
-  listing_id_lt: String
-  listing_id_exists: Boolean
-  reviewer_id_gt: String
-  comments_in: [String]
-  listing_id_nin: [String]
-  reviewer_id: String
-  _id_in: [String]
-  reviewer_name_ne: String
-  reviewer_name: String
-  comments_gt: String
-  date_ne: DateTime
-  reviewer_name_lt: String
-  listing_id_gt: String
-  date: DateTime
-  listing_id_gte: String
-  listing_id_ne: String
-  date_lte: DateTime
-  date_gt: DateTime
-  comments_lt: String
-  reviewer_id_lt: String
   listing_id_in: [String]
+  date_exists: Boolean
+  comments_gt: String
+  reviewer_name_gt: String
+  reviewer_id_in: [String]
+  reviewer_name: String
+  reviewer_name_lte: String
+  comments_lt: String
+  listing_id_gte: String
+  date_gte: DateTime
+  date_ne: DateTime
+  listing_id_lte: String
+  date_lte: DateTime
+  reviewer_name_in: [String]
+  reviewer_id: String
+  reviewer_id_ne: String
+  date_nin: [DateTime]
   _id_ne: String
   reviewer_id_lte: String
-  _id_lte: String
-  date_nin: [DateTime]
-  _id_nin: [String]
-  reviewer_id_gte: String
-  comments_lte: String
-  comments_ne: String
-  reviewer_name_lte: String
-  comments_exists: Boolean
-  reviewer_name_gt: String
-  _id_gte: String
+  listing_id_lt: String
+  comments_in: [String]
   comments: String
-  listing_id: String
-  reviewer_id_in: [String]
-  reviewer_id_ne: String
-  reviewer_id_exists: Boolean
-  AND: [ListingsAndReviewReviewQueryInput!]
-  OR: [ListingsAndReviewReviewQueryInput!]
-  comments_gte: String
-  date_gte: DateTime
-}
-
-type ListingsAndReviewReview_score {
-  review_scores_accuracy: Int
-  review_scores_checkin: Int
-  review_scores_cleanliness: Int
-  review_scores_communication: Int
-  review_scores_location: Int
-  review_scores_rating: Int
-  review_scores_value: Int
-}
-
-input ListingsAndReviewUpdateInput {
-  monthly_price: Decimal
-  amenities_unset: Boolean
-  property_type_unset: Boolean
-  notes_unset: Boolean
-  house_rules_unset: Boolean
-  review_scores: ListingsAndReviewReview_scoreUpdateInput
-  beds_unset: Boolean
-  space_unset: Boolean
-  host: ListingsAndReviewHostUpdateInput
-  reviews_unset: Boolean
-  summary_unset: Boolean
-  extra_people_unset: Boolean
-  last_scraped: DateTime
-  maximum_nights_unset: Boolean
-  bedrooms: Int
-  weekly_price: Decimal
-  maximum_nights: String
-  first_review: DateTime
-  access_unset: Boolean
-  first_review_unset: Boolean
-  availability: ListingsAndReviewAvailabilityUpdateInput
-  security_deposit_unset: Boolean
-  bathrooms_unset: Boolean
-  review_scores_unset: Boolean
-  house_rules: String
-  weekly_price_unset: Boolean
-  summary: String
-  bathrooms: Decimal
-  interaction: String
-  number_of_reviews_unset: Boolean
-  cleaning_fee_unset: Boolean
-  transit_unset: Boolean
-  property_type: String
-  description: String
-  price_unset: Boolean
-  room_type_unset: Boolean
-  cancellation_policy: String
-  amenities: [String]
-  description_unset: Boolean
-  neighborhood_overview: String
-  access: String
-  accommodates: Int
-  last_review: DateTime
-  address: ListingsAndReviewAddressUpdateInput
-  availability_unset: Boolean
-  name_unset: Boolean
-  guests_included_unset: Boolean
-  calendar_last_scraped_unset: Boolean
-  cancellation_policy_unset: Boolean
-  beds_inc: Int
-  bedrooms_unset: Boolean
-  neighborhood_overview_unset: Boolean
-  price: Decimal
-  room_type: String
-  bed_type_unset: Boolean
-  minimum_nights: String
-  listing_url: String
-  _id_unset: Boolean
-  images: ListingsAndReviewImageUpdateInput
-  notes: String
-  accommodates_inc: Int
-  accommodates_unset: Boolean
-  number_of_reviews_inc: Int
-  guests_included: Decimal
-  reviews: [ListingsAndReviewReviewUpdateInput]
-  last_scraped_unset: Boolean
-  interaction_unset: Boolean
-  name: String
-  transit: String
-  last_review_unset: Boolean
-  beds: Int
+  reviewer_id_gt: String
+  _id_in: [String]
+  _id_nin: [String]
+  reviewer_name_gte: String
   _id: String
-  security_deposit: Decimal
-  bed_type: String
-  minimum_nights_unset: Boolean
-  space: String
-  host_unset: Boolean
-  number_of_reviews: Int
-  extra_people: Decimal
-  calendar_last_scraped: DateTime
-  cleaning_fee: Decimal
-  address_unset: Boolean
-  bedrooms_inc: Int
-  listing_url_unset: Boolean
-  monthly_price_unset: Boolean
-  images_unset: Boolean
+  reviewer_name_ne: String
+  OR: [ListingsAndReviewReviewQueryInput!]
+  reviewer_id_gte: String
+  date_in: [DateTime]
+  comments_ne: String
+  reviewer_name_nin: [String]
+  date: DateTime
+  listing_id: String
+  date_lt: DateTime
+  listing_id_gt: String
+  reviewer_id_nin: [String]
+  comments_lte: String
+  reviewer_name_exists: Boolean
+  listing_id_ne: String
+  AND: [ListingsAndReviewReviewQueryInput!]
+  comments_gte: String
+  comments_exists: Boolean
+  reviewer_id_lt: String
+  comments_nin: [String]
+  date_gt: DateTime
+  reviewer_id_exists: Boolean
+  reviewer_name_lt: String
+  _id_lt: String
+  listing_id_nin: [String]
+  _id_gt: String
+  _id_gte: String
+  _id_lte: String
+  listing_id_exists: Boolean
 }
 
-scalar ObjectId
-
-type UpdateManyPayload {
-  matchedCount: Int!
-  modifiedCount: Int!
+input ListingsAndReviewAddressLocationUpdateInput {
+  coordinates: [Float]
+  coordinates_unset: Boolean
+  is_location_exact: Boolean
+  is_location_exact_unset: Boolean
+  type: String
+  type_unset: Boolean
 }
 
 input ListingsAndReviewImageUpdateInput {
-  picture_url: String
-  picture_url_unset: Boolean
-  thumbnail_url: String
-  thumbnail_url_unset: Boolean
   xl_picture_url: String
   xl_picture_url_unset: Boolean
   medium_url: String
   medium_url_unset: Boolean
+  picture_url: String
+  picture_url_unset: Boolean
+  thumbnail_url: String
+  thumbnail_url_unset: Boolean
 }
 
-input ListingsAndReviewImageQueryInput {
-  xl_picture_url_lt: String
-  thumbnail_url_ne: String
-  medium_url_lte: String
-  picture_url_nin: [String]
-  thumbnail_url_lte: String
-  medium_url_nin: [String]
-  xl_picture_url_gte: String
-  OR: [ListingsAndReviewImageQueryInput!]
-  medium_url_ne: String
-  picture_url_in: [String]
-  picture_url: String
-  thumbnail_url_exists: Boolean
-  xl_picture_url_in: [String]
-  picture_url_gte: String
-  xl_picture_url_ne: String
-  xl_picture_url_nin: [String]
-  thumbnail_url: String
-  medium_url_exists: Boolean
-  AND: [ListingsAndReviewImageQueryInput!]
-  picture_url_lte: String
-  xl_picture_url_lte: String
-  picture_url_gt: String
-  thumbnail_url_nin: [String]
-  picture_url_lt: String
-  medium_url: String
-  picture_url_exists: Boolean
-  picture_url_ne: String
-  thumbnail_url_gt: String
-  medium_url_in: [String]
-  xl_picture_url_gt: String
-  medium_url_gte: String
-  medium_url_gt: String
-  thumbnail_url_lt: String
-  thumbnail_url_in: [String]
-  xl_picture_url: String
-  medium_url_lt: String
-  thumbnail_url_gte: String
-  xl_picture_url_exists: Boolean
+input ListingsAndReviewAvailabilityUpdateInput {
+  availability_60_unset: Boolean
+  availability_90_unset: Boolean
+  availability_30: Int
+  availability_365_unset: Boolean
+  availability_365_inc: Int
+  availability_30_unset: Boolean
+  availability_365: Int
+  availability_60_inc: Int
+  availability_30_inc: Int
+  availability_60: Int
+  availability_90_inc: Int
+  availability_90: Int
+}
+
+type ListingsAndReviewAddress {
+  country: String
+  country_code: String
+  government_area: String
+  location: ListingsAndReviewAddressLocation
+  market: String
+  street: String
+  suburb: String
 }
 
 type ListingsAndReviewHost {
@@ -551,25 +251,793 @@ type ListingsAndReviewHost {
   host_verifications: [String]
 }
 
-scalar Decimal
+input ListingsAndReviewAvailabilityInsertInput {
+  availability_365: Int
+  availability_60: Int
+  availability_90: Int
+  availability_30: Int
+}
+
+type InsertManyPayload {
+  insertedIds: [ObjectId]!
+}
+
+type ListingsAndReviewReview {
+  _id: String
+  comments: String
+  date: DateTime
+  listing_id: String
+  reviewer_id: String
+  reviewer_name: String
+}
+
+input ListingsAndReviewImageQueryInput {
+  medium_url: String
+  picture_url_lt: String
+  medium_url_ne: String
+  picture_url_ne: String
+  xl_picture_url_lte: String
+  xl_picture_url: String
+  medium_url_nin: [String]
+  thumbnail_url_exists: Boolean
+  thumbnail_url_nin: [String]
+  picture_url_lte: String
+  picture_url_in: [String]
+  xl_picture_url_gt: String
+  thumbnail_url_gte: String
+  xl_picture_url_gte: String
+  xl_picture_url_ne: String
+  AND: [ListingsAndReviewImageQueryInput!]
+  medium_url_in: [String]
+  medium_url_gte: String
+  picture_url_nin: [String]
+  xl_picture_url_in: [String]
+  OR: [ListingsAndReviewImageQueryInput!]
+  picture_url_exists: Boolean
+  medium_url_exists: Boolean
+  medium_url_lt: String
+  thumbnail_url_gt: String
+  thumbnail_url_ne: String
+  medium_url_gt: String
+  xl_picture_url_nin: [String]
+  xl_picture_url_exists: Boolean
+  thumbnail_url_lte: String
+  medium_url_lte: String
+  picture_url_gt: String
+  thumbnail_url_in: [String]
+  picture_url: String
+  picture_url_gte: String
+  thumbnail_url: String
+  thumbnail_url_lt: String
+  xl_picture_url_lt: String
+}
+
+type Mutation {
+  deleteManyListingsAndReviews(
+    query: ListingsAndReviewQueryInput
+  ): DeleteManyPayload
+  deleteOneListingsAndReview(
+    query: ListingsAndReviewQueryInput!
+  ): ListingsAndReview
+  insertManyListingsAndReviews(
+    data: [ListingsAndReviewInsertInput!]!
+  ): InsertManyPayload
+  insertOneListingsAndReview(
+    data: ListingsAndReviewInsertInput!
+  ): ListingsAndReview
+  replaceOneListingsAndReview(
+    query: ListingsAndReviewQueryInput
+    data: ListingsAndReviewInsertInput!
+  ): ListingsAndReview
+  updateManyListingsAndReviews(
+    query: ListingsAndReviewQueryInput
+    set: ListingsAndReviewUpdateInput!
+  ): UpdateManyPayload
+  updateOneListingsAndReview(
+    query: ListingsAndReviewQueryInput
+    set: ListingsAndReviewUpdateInput!
+  ): ListingsAndReview
+  upsertOneListingsAndReview(
+    query: ListingsAndReviewQueryInput
+    data: ListingsAndReviewInsertInput!
+  ): ListingsAndReview
+}
 
 input ListingsAndReviewHostInsertInput {
-  host_thumbnail_url: String
-  host_is_superhost: Boolean
+  host_picture_url: String
   host_response_rate: Int
+  host_neighbourhood: String
+  host_thumbnail_url: String
+  host_name: String
+  host_url: String
   host_has_profile_pic: Boolean
+  host_verifications: [String]
+  host_location: String
+  host_total_listings_count: Int
   host_about: String
   host_listings_count: Int
-  host_identity_verified: Boolean
-  host_total_listings_count: Int
-  host_location: String
-  host_name: String
-  host_neighbourhood: String
   host_id: String
-  host_verifications: [String]
-  host_picture_url: String
+  host_is_superhost: Boolean
+  host_identity_verified: Boolean
   host_response_time: String
+}
+
+scalar DateTime
+
+type ListingsAndReviewReview_score {
+  review_scores_accuracy: Int
+  review_scores_checkin: Int
+  review_scores_cleanliness: Int
+  review_scores_communication: Int
+  review_scores_location: Int
+  review_scores_rating: Int
+  review_scores_value: Int
+}
+
+input ListingsAndReviewQueryInput {
+  calendar_last_scraped_exists: Boolean
+  minimum_nights_nin: [String]
+  number_of_reviews: Int
+  last_scraped_lt: DateTime
+  cleaning_fee_gt: Decimal
+  name_lte: String
+  security_deposit_exists: Boolean
+  availability: ListingsAndReviewAvailabilityQueryInput
+  beds_ne: Int
+  property_type_gt: String
+  last_review_gte: DateTime
+  last_scraped: DateTime
+  last_review_lt: DateTime
+  accommodates_gt: Int
+  cancellation_policy_exists: Boolean
+  number_of_reviews_ne: Int
+  first_review_nin: [DateTime]
+  interaction_gte: String
+  accommodates_ne: Int
+  property_type: String
+  bedrooms_exists: Boolean
+  price_lt: Decimal
+  last_review: DateTime
+  weekly_price_lt: Decimal
+  transit: String
+  access_in: [String]
+  weekly_price_gt: Decimal
+  guests_included_gt: Decimal
+  reviews_in: [ListingsAndReviewReviewQueryInput]
+  interaction: String
+  extra_people_in: [Decimal]
+  bathrooms_gte: Decimal
+  accommodates_nin: [Int]
+  neighborhood_overview_ne: String
+  beds_exists: Boolean
+  last_scraped_ne: DateTime
+  security_deposit_in: [Decimal]
+  calendar_last_scraped_gte: DateTime
+  access_ne: String
+  cleaning_fee: Decimal
+  minimum_nights_ne: String
+  neighborhood_overview_lte: String
+  last_scraped_nin: [DateTime]
+  interaction_lte: String
+  first_review_gt: DateTime
+  accommodates_lt: Int
+  listing_url_exists: Boolean
+  notes_nin: [String]
+  monthly_price_exists: Boolean
+  images: ListingsAndReviewImageQueryInput
+  first_review_gte: DateTime
+  security_deposit_gt: Decimal
+  house_rules_in: [String]
+  room_type_gte: String
+  neighborhood_overview_nin: [String]
+  last_review_nin: [DateTime]
+  transit_nin: [String]
+  bed_type: String
+  room_type_ne: String
+  space_exists: Boolean
+  bathrooms_lte: Decimal
+  description_gt: String
+  bedrooms_gt: Int
+  bathrooms_nin: [Decimal]
+  notes_in: [String]
+  neighborhood_overview_gt: String
+  house_rules_lte: String
+  bed_type_gte: String
+  price_gt: Decimal
+  weekly_price_gte: Decimal
+  last_scraped_exists: Boolean
+  name_lt: String
+  extra_people_lte: Decimal
+  description: String
+  guests_included_ne: Decimal
+  name_in: [String]
+  extra_people_gt: Decimal
+  listing_url: String
+  property_type_in: [String]
+  summary_exists: Boolean
+  listing_url_ne: String
+  summary_nin: [String]
+  bed_type_exists: Boolean
+  number_of_reviews_lt: Int
+  maximum_nights_gte: String
+  first_review: DateTime
+  last_review_ne: DateTime
+  transit_gte: String
+  weekly_price_ne: Decimal
+  property_type_nin: [String]
+  room_type_exists: Boolean
+  extra_people_lt: Decimal
+  bedrooms: Int
+  bedrooms_lt: Int
+  access_gte: String
+  price_gte: Decimal
+  guests_included_lte: Decimal
+  house_rules_gt: String
+  listing_url_lt: String
+  bathrooms_exists: Boolean
+  house_rules_gte: String
+  house_rules: String
+  bathrooms_gt: Decimal
+  maximum_nights_lt: String
+  bed_type_lt: String
+  bedrooms_ne: Int
+  weekly_price_in: [Decimal]
+  notes_gte: String
+  property_type_lt: String
+  notes_lte: String
+  security_deposit_lte: Decimal
+  beds_nin: [Int]
+  extra_people_exists: Boolean
+  availability_exists: Boolean
+  number_of_reviews_lte: Int
+  beds_gte: Int
+  review_scores: ListingsAndReviewReview_scoreQueryInput
+  listing_url_nin: [String]
+  last_review_in: [DateTime]
+  guests_included_in: [Decimal]
+  weekly_price: Decimal
+  transit_ne: String
+  number_of_reviews_gt: Int
+  bed_type_nin: [String]
+  beds_gt: Int
+  _id_gte: String
+  cancellation_policy: String
+  summary_gt: String
+  property_type_ne: String
+  property_type_lte: String
+  _id_ne: String
+  calendar_last_scraped_in: [DateTime]
+  security_deposit_gte: Decimal
+  space_gte: String
+  monthly_price: Decimal
+  bedrooms_gte: Int
+  calendar_last_scraped_lt: DateTime
+  cancellation_policy_gt: String
+  name_gt: String
+  price: Decimal
+  maximum_nights_lte: String
+  bedrooms_in: [Int]
+  reviews_nin: [ListingsAndReviewReviewQueryInput]
+  price_in: [Decimal]
+  description_nin: [String]
+  guests_included_lt: Decimal
+  OR: [ListingsAndReviewQueryInput!]
+  calendar_last_scraped_gt: DateTime
+  minimum_nights_exists: Boolean
+  room_type_gt: String
+  first_review_lt: DateTime
+  calendar_last_scraped: DateTime
+  bathrooms_lt: Decimal
+  room_type_nin: [String]
+  address_exists: Boolean
+  space_lt: String
+  _id_lte: String
+  accommodates_exists: Boolean
+  minimum_nights_lte: String
+  access: String
+  description_in: [String]
+  transit_lt: String
+  notes: String
+  amenities_in: [String]
+  listing_url_gt: String
+  summary: String
+  space_lte: String
+  description_lte: String
+  space_ne: String
+  maximum_nights: String
+  summary_ne: String
+  cancellation_policy_lt: String
+  price_nin: [Decimal]
+  amenities_exists: Boolean
+  interaction_in: [String]
+  transit_in: [String]
+  access_exists: Boolean
+  security_deposit: Decimal
+  number_of_reviews_exists: Boolean
+  bed_type_gt: String
+  last_review_gt: DateTime
+  bed_type_lte: String
+  calendar_last_scraped_ne: DateTime
+  room_type_lt: String
+  house_rules_lt: String
+  cancellation_policy_gte: String
+  monthly_price_lt: Decimal
+  name: String
+  weekly_price_exists: Boolean
+  transit_gt: String
+  accommodates_gte: Int
+  cleaning_fee_ne: Decimal
+  address: ListingsAndReviewAddressQueryInput
+  summary_in: [String]
+  amenities: [String]
+  extra_people_gte: Decimal
+  cleaning_fee_gte: Decimal
+  bathrooms_in: [Decimal]
+  _id_in: [String]
+  images_exists: Boolean
+  reviews: [ListingsAndReviewReviewQueryInput]
+  amenities_nin: [String]
+  first_review_ne: DateTime
+  beds: Int
+  guests_included_nin: [Decimal]
+  reviews_exists: Boolean
+  notes_exists: Boolean
+  interaction_nin: [String]
+  cleaning_fee_lte: Decimal
+  first_review_in: [DateTime]
+  monthly_price_gt: Decimal
+  monthly_price_nin: [Decimal]
+  space_in: [String]
+  minimum_nights: String
+  access_lte: String
+  maximum_nights_nin: [String]
+  neighborhood_overview: String
+  security_deposit_lt: Decimal
+  transit_exists: Boolean
+  _id_gt: String
+  interaction_lt: String
+  house_rules_ne: String
+  neighborhood_overview_exists: Boolean
+  bathrooms_ne: Decimal
+  interaction_gt: String
+  listing_url_gte: String
+  neighborhood_overview_gte: String
+  beds_lt: Int
+  cancellation_policy_nin: [String]
+  number_of_reviews_gte: Int
+  last_scraped_lte: DateTime
+  monthly_price_lte: Decimal
+  name_nin: [String]
+  cancellation_policy_ne: String
+  beds_lte: Int
+  weekly_price_nin: [Decimal]
+  description_gte: String
+  security_deposit_nin: [Decimal]
+  first_review_exists: Boolean
+  description_ne: String
+  _id_lt: String
+  monthly_price_ne: Decimal
+  accommodates_lte: Int
+  maximum_nights_in: [String]
+  name_ne: String
+  interaction_exists: Boolean
+  minimum_nights_lt: String
+  space_gt: String
+  space_nin: [String]
+  interaction_ne: String
+  _id_exists: Boolean
+  host_exists: Boolean
+  cleaning_fee_nin: [Decimal]
+  description_exists: Boolean
+  price_ne: Decimal
+  accommodates: Int
+  bedrooms_nin: [Int]
+  neighborhood_overview_lt: String
+  guests_included_gte: Decimal
+  minimum_nights_gte: String
+  calendar_last_scraped_nin: [DateTime]
+  name_gte: String
+  summary_lte: String
+  first_review_lte: DateTime
+  access_lt: String
+  last_scraped_gt: DateTime
+  cancellation_policy_in: [String]
+  cleaning_fee_lt: Decimal
+  _id_nin: [String]
+  bed_type_ne: String
+  transit_lte: String
+  space: String
+  calendar_last_scraped_lte: DateTime
+  notes_ne: String
+  beds_in: [Int]
+  bedrooms_lte: Int
+  property_type_gte: String
+  extra_people_ne: Decimal
+  access_nin: [String]
+  cancellation_policy_lte: String
+  number_of_reviews_in: [Int]
+  extra_people: Decimal
+  guests_included: Decimal
+  neighborhood_overview_in: [String]
+  last_review_lte: DateTime
+  guests_included_exists: Boolean
+  summary_gte: String
+  description_lt: String
+  maximum_nights_ne: String
+  property_type_exists: Boolean
+  security_deposit_ne: Decimal
+  monthly_price_in: [Decimal]
+  cleaning_fee_in: [Decimal]
+  bathrooms: Decimal
+  minimum_nights_in: [String]
+  bed_type_in: [String]
+  notes_lt: String
+  host: ListingsAndReviewHostQueryInput
+  last_scraped_gte: DateTime
+  minimum_nights_gt: String
+  _id: String
+  room_type_in: [String]
+  house_rules_exists: Boolean
+  listing_url_in: [String]
+  access_gt: String
+  maximum_nights_exists: Boolean
+  extra_people_nin: [Decimal]
+  price_lte: Decimal
+  accommodates_in: [Int]
+  summary_lt: String
+  notes_gt: String
+  last_review_exists: Boolean
+  price_exists: Boolean
+  cleaning_fee_exists: Boolean
+  room_type: String
+  last_scraped_in: [DateTime]
+  monthly_price_gte: Decimal
+  AND: [ListingsAndReviewQueryInput!]
+  maximum_nights_gt: String
+  name_exists: Boolean
+  review_scores_exists: Boolean
+  weekly_price_lte: Decimal
+  listing_url_lte: String
+  house_rules_nin: [String]
+  room_type_lte: String
+  number_of_reviews_nin: [Int]
+}
+
+input ListingsAndReviewHostQueryInput {
+  host_picture_url_nin: [String]
+  host_response_rate_gt: Int
+  host_url_exists: Boolean
+  host_is_superhost_ne: Boolean
+  host_url_in: [String]
+  host_neighbourhood_exists: Boolean
+  host_total_listings_count_lte: Int
+  host_picture_url_lt: String
+  host_about_lt: String
+  OR: [ListingsAndReviewHostQueryInput!]
+  host_about_exists: Boolean
+  host_location_ne: String
+  host_name_gt: String
+  host_neighbourhood_gte: String
+  host_thumbnail_url_lte: String
+  host_neighbourhood: String
+  host_about_gt: String
+  host_response_time_gte: String
+  host_about_ne: String
+  host_neighbourhood_in: [String]
+  host_listings_count_exists: Boolean
+  host_response_time_gt: String
+  host_about_nin: [String]
+  host_response_time: String
+  host_neighbourhood_lte: String
   host_url: String
+  host_response_time_lt: String
+  host_total_listings_count_gte: Int
+  host_id_ne: String
+  host_id_exists: Boolean
+  host_identity_verified_ne: Boolean
+  host_id_gte: String
+  host_total_listings_count_nin: [Int]
+  host_neighbourhood_lt: String
+  host_response_time_ne: String
+  host_url_gte: String
+  host_verifications_exists: Boolean
+  host_response_rate_nin: [Int]
+  host_name_lte: String
+  host_response_rate_lte: Int
+  host_verifications_nin: [String]
+  host_thumbnail_url_nin: [String]
+  host_listings_count_lt: Int
+  host_listings_count_lte: Int
+  host_thumbnail_url: String
+  host_location_gt: String
+  host_name_exists: Boolean
+  host_url_lte: String
+  host_id: String
+  host_listings_count_ne: Int
+  host_is_superhost_exists: Boolean
+  host_url_nin: [String]
+  host_id_gt: String
+  host_location_lte: String
+  host_thumbnail_url_exists: Boolean
+  host_response_rate_lt: Int
+  host_location_in: [String]
+  host_location_gte: String
+  host_response_time_lte: String
+  host_has_profile_pic: Boolean
+  host_about_in: [String]
+  host_neighbourhood_gt: String
+  host_picture_url: String
+  host_name_lt: String
+  host_location_nin: [String]
+  host_total_listings_count: Int
+  host_url_lt: String
+  host_total_listings_count_lt: Int
+  AND: [ListingsAndReviewHostQueryInput!]
+  host_url_ne: String
+  host_verifications_in: [String]
+  host_has_profile_pic_exists: Boolean
+  host_response_time_nin: [String]
+  host_location_lt: String
+  host_thumbnail_url_in: [String]
+  host_listings_count_in: [Int]
+  host_response_rate_in: [Int]
+  host_response_time_in: [String]
+  host_listings_count_nin: [Int]
+  host_url_gt: String
+  host_response_rate_exists: Boolean
+  host_neighbourhood_ne: String
+  host_thumbnail_url_gt: String
+  host_listings_count_gte: Int
+  host_picture_url_exists: Boolean
+  host_neighbourhood_nin: [String]
+  host_about_gte: String
+  host_name: String
+  host_total_listings_count_in: [Int]
+  host_id_in: [String]
+  host_name_in: [String]
+  host_about_lte: String
+  host_name_nin: [String]
+  host_total_listings_count_ne: Int
+  host_total_listings_count_gt: Int
+  host_picture_url_gt: String
+  host_total_listings_count_exists: Boolean
+  host_picture_url_ne: String
+  host_thumbnail_url_ne: String
+  host_thumbnail_url_lt: String
+  host_response_rate_gte: Int
+  host_verifications: [String]
+  host_listings_count_gt: Int
+  host_response_rate: Int
+  host_name_gte: String
+  host_thumbnail_url_gte: String
+  host_identity_verified: Boolean
+  host_picture_url_gte: String
+  host_picture_url_in: [String]
+  host_listings_count: Int
+  host_identity_verified_exists: Boolean
+  host_has_profile_pic_ne: Boolean
+  host_location_exists: Boolean
+  host_id_lte: String
+  host_id_nin: [String]
+  host_location: String
+  host_picture_url_lte: String
+  host_response_time_exists: Boolean
+  host_name_ne: String
+  host_about: String
+  host_id_lt: String
+  host_is_superhost: Boolean
+  host_response_rate_ne: Int
+}
+
+input ListingsAndReviewReviewInsertInput {
+  date: DateTime
+  listing_id: String
+  reviewer_id: String
+  reviewer_name: String
+  _id: String
+  comments: String
+}
+
+input ListingsAndReviewHostUpdateInput {
+  host_verifications: [String]
+  host_about: String
+  host_name_unset: Boolean
+  host_response_rate_inc: Int
+  host_verifications_unset: Boolean
+  host_identity_verified: Boolean
+  host_has_profile_pic: Boolean
+  host_total_listings_count_unset: Boolean
+  host_response_time_unset: Boolean
+  host_neighbourhood_unset: Boolean
+  host_is_superhost: Boolean
+  host_picture_url: String
+  host_location_unset: Boolean
+  host_listings_count_inc: Int
+  host_url: String
+  host_response_rate_unset: Boolean
+  host_picture_url_unset: Boolean
+  host_neighbourhood: String
+  host_about_unset: Boolean
+  host_thumbnail_url: String
+  host_url_unset: Boolean
+  host_response_rate: Int
+  host_listings_count_unset: Boolean
+  host_name: String
+  host_listings_count: Int
+  host_id_unset: Boolean
+  host_identity_verified_unset: Boolean
+  host_location: String
+  host_total_listings_count: Int
+  host_has_profile_pic_unset: Boolean
+  host_response_time: String
+  host_total_listings_count_inc: Int
+  host_id: String
+  host_thumbnail_url_unset: Boolean
+  host_is_superhost_unset: Boolean
+}
+
+input GetListingsFuncInput {
+  limit: Float
+  offset: Float
+}
+
+input ListingsAndReviewImageInsertInput {
+  picture_url: String
+  thumbnail_url: String
+  xl_picture_url: String
+  medium_url: String
+}
+
+input ListingsAndReviewReview_scoreUpdateInput {
+  review_scores_accuracy_inc: Int
+  review_scores_communication_inc: Int
+  review_scores_checkin_inc: Int
+  review_scores_cleanliness_inc: Int
+  review_scores_accuracy_unset: Boolean
+  review_scores_checkin: Int
+  review_scores_location_inc: Int
+  review_scores_cleanliness: Int
+  review_scores_cleanliness_unset: Boolean
+  review_scores_checkin_unset: Boolean
+  review_scores_location: Int
+  review_scores_location_unset: Boolean
+  review_scores_value_unset: Boolean
+  review_scores_accuracy: Int
+  review_scores_rating_inc: Int
+  review_scores_value_inc: Int
+  review_scores_value: Int
+  review_scores_communication_unset: Boolean
+  review_scores_rating: Int
+  review_scores_rating_unset: Boolean
+  review_scores_communication: Int
+}
+
+input ListingsAndReviewAddressQueryInput {
+  government_area_in: [String]
+  suburb_ne: String
+  location_exists: Boolean
+  government_area_lte: String
+  location: ListingsAndReviewAddressLocationQueryInput
+  country: String
+  market_in: [String]
+  country_ne: String
+  street_nin: [String]
+  suburb_lte: String
+  suburb_exists: Boolean
+  government_area_ne: String
+  country_code_gt: String
+  country_code_lte: String
+  government_area_nin: [String]
+  country_lte: String
+  street_exists: Boolean
+  country_code_gte: String
+  street_lte: String
+  country_nin: [String]
+  government_area_gte: String
+  country_gt: String
+  country_code_ne: String
+  suburb: String
+  suburb_gte: String
+  government_area_exists: Boolean
+  market_lt: String
+  suburb_lt: String
+  suburb_in: [String]
+  suburb_gt: String
+  suburb_nin: [String]
+  market_nin: [String]
+  street_lt: String
+  market: String
+  OR: [ListingsAndReviewAddressQueryInput!]
+  market_lte: String
+  AND: [ListingsAndReviewAddressQueryInput!]
+  country_code_lt: String
+  country_code_in: [String]
+  market_gte: String
+  country_lt: String
+  country_code_exists: Boolean
+  street_ne: String
+  country_exists: Boolean
+  market_ne: String
+  street: String
+  country_code: String
+  government_area_lt: String
+  government_area: String
+  country_in: [String]
+  market_exists: Boolean
+  government_area_gt: String
+  street_in: [String]
+  street_gte: String
+  street_gt: String
+  country_gte: String
+  market_gt: String
+  country_code_nin: [String]
+}
+
+type DeleteManyPayload {
+  deletedCount: Int!
+}
+
+type ListingsAndReviewAvailability {
+  availability_30: Int
+  availability_365: Int
+  availability_60: Int
+  availability_90: Int
+}
+
+input ListingsAndReviewAvailabilityQueryInput {
+  availability_30: Int
+  availability_60: Int
+  availability_60_gte: Int
+  availability_60_ne: Int
+  availability_90_ne: Int
+  OR: [ListingsAndReviewAvailabilityQueryInput!]
+  availability_30_ne: Int
+  AND: [ListingsAndReviewAvailabilityQueryInput!]
+  availability_30_in: [Int]
+  availability_365_lte: Int
+  availability_365_ne: Int
+  availability_365_nin: [Int]
+  availability_60_in: [Int]
+  availability_365_in: [Int]
+  availability_90_exists: Boolean
+  availability_90_lte: Int
+  availability_365_exists: Boolean
+  availability_90_lt: Int
+  availability_30_gte: Int
+  availability_60_exists: Boolean
+  availability_90_nin: [Int]
+  availability_30_nin: [Int]
+  availability_365: Int
+  availability_60_lt: Int
+  availability_365_lt: Int
+  availability_90_gte: Int
+  availability_30_lt: Int
+  availability_365_gt: Int
+  availability_365_gte: Int
+  availability_60_gt: Int
+  availability_90_in: [Int]
+  availability_30_exists: Boolean
+  availability_30_gt: Int
+  availability_90_gt: Int
+  availability_90: Int
+  availability_60_lte: Int
+  availability_60_nin: [Int]
+  availability_30_lte: Int
+}
+
+input ListingsAndReviewReviewUpdateInput {
+  comments_unset: Boolean
+  date: DateTime
+  reviewer_id_unset: Boolean
+  listing_id_unset: Boolean
+  _id_unset: Boolean
+  reviewer_name: String
+  _id: String
+  reviewer_name_unset: Boolean
+  comments: String
+  date_unset: Boolean
+  listing_id: String
+  reviewer_id: String
 }
 
 type ListingsAndReview {
@@ -616,358 +1084,116 @@ type ListingsAndReview {
   weekly_price: Decimal
 }
 
-type ListingsAndReviewReview {
-  _id: String
-  comments: String
-  date: DateTime
-  listing_id: String
-  reviewer_id: String
-  reviewer_name: String
-}
+scalar Decimal
 
-input ListingsAndReviewAddressLocationInsertInput {
-  is_location_exact: Boolean
-  type: String
+input ListingsAndReviewAddressLocationQueryInput {
   coordinates: [Float]
+  is_location_exact: Boolean
+  type_gte: String
+  type: String
+  type_exists: Boolean
+  type_lt: String
+  is_location_exact_ne: Boolean
+  OR: [ListingsAndReviewAddressLocationQueryInput!]
+  type_gt: String
+  coordinates_exists: Boolean
+  AND: [ListingsAndReviewAddressLocationQueryInput!]
+  type_nin: [String]
+  type_ne: String
+  is_location_exact_exists: Boolean
+  type_in: [String]
+  coordinates_nin: [Float]
+  type_lte: String
+  coordinates_in: [Float]
 }
 
-input ListingsAndReviewQueryInput {
-  summary_gt: String
-  last_review_lte: DateTime
-  bathrooms_exists: Boolean
-  description_in: [String]
-  cleaning_fee_gte: Decimal
-  guests_included_nin: [Decimal]
-  monthly_price_exists: Boolean
-  transit_exists: Boolean
-  price: Decimal
-  neighborhood_overview_in: [String]
-  maximum_nights_exists: Boolean
-  guests_included_ne: Decimal
-  name_gte: String
-  transit_lt: String
-  monthly_price_ne: Decimal
-  bedrooms_lt: Int
-  price_in: [Decimal]
-  cancellation_policy_exists: Boolean
-  cancellation_policy_lt: String
-  extra_people_lte: Decimal
-  cancellation_policy_gt: String
-  number_of_reviews_gt: Int
-  transit_nin: [String]
-  bed_type_lt: String
-  neighborhood_overview_gte: String
-  _id_exists: Boolean
-  security_deposit_exists: Boolean
-  beds_gt: Int
-  access_in: [String]
-  beds_nin: [Int]
-  _id_lte: String
-  interaction_gte: String
-  listing_url_lt: String
-  name_lt: String
-  maximum_nights_gt: String
-  first_review_lte: DateTime
-  review_scores: ListingsAndReviewReview_scoreQueryInput
-  weekly_price_lte: Decimal
-  monthly_price_lte: Decimal
-  name_lte: String
-  _id_gte: String
-  description_gte: String
-  property_type: String
-  maximum_nights_gte: String
-  weekly_price_nin: [Decimal]
-  space_ne: String
-  accommodates: Int
-  access_exists: Boolean
-  room_type_lte: String
-  guests_included_exists: Boolean
-  listing_url_nin: [String]
-  bed_type_nin: [String]
-  neighborhood_overview: String
-  amenities_in: [String]
-  space: String
+input ListingsAndReviewUpdateInput {
+  cancellation_policy_unset: Boolean
+  weekly_price_unset: Boolean
+  availability_unset: Boolean
+  calendar_last_scraped_unset: Boolean
+  calendar_last_scraped: DateTime
+  extra_people: Decimal
+  bathrooms_unset: Boolean
   weekly_price: Decimal
   cleaning_fee: Decimal
-  _id_in: [String]
-  bedrooms_exists: Boolean
-  maximum_nights_nin: [String]
-  access_gte: String
-  extra_people_nin: [Decimal]
-  house_rules_in: [String]
-  accommodates_lt: Int
-  access_lt: String
-  security_deposit_gte: Decimal
-  access_ne: String
-  description_exists: Boolean
-  bedrooms_lte: Int
-  bathrooms_gte: Decimal
-  summary_exists: Boolean
-  last_review_in: [DateTime]
-  first_review: DateTime
-  cancellation_policy_in: [String]
-  summary_nin: [String]
-  number_of_reviews_lte: Int
-  OR: [ListingsAndReviewQueryInput!]
-  name: String
-  last_review_gte: DateTime
-  number_of_reviews_lt: Int
-  cleaning_fee_exists: Boolean
-  house_rules_ne: String
-  bedrooms_ne: Int
-  _id_gt: String
-  description_gt: String
-  listing_url_gt: String
-  room_type: String
-  number_of_reviews_exists: Boolean
-  cleaning_fee_gt: Decimal
-  transit_gt: String
-  accommodates_ne: Int
-  maximum_nights_ne: String
-  access: String
-  beds_exists: Boolean
-  bathrooms: Decimal
-  extra_people_lt: Decimal
-  notes_gt: String
-  guests_included_lte: Decimal
-  _id_nin: [String]
-  last_review_ne: DateTime
-  first_review_ne: DateTime
-  amenities: [String]
-  notes: String
-  first_review_gt: DateTime
-  name_nin: [String]
-  bathrooms_nin: [Decimal]
-  property_type_ne: String
-  calendar_last_scraped_lt: DateTime
-  room_type_gte: String
-  neighborhood_overview_nin: [String]
-  guests_included_gte: Decimal
-  _id_ne: String
-  accommodates_gte: Int
-  listing_url_lte: String
-  security_deposit_gt: Decimal
-  weekly_price_gte: Decimal
-  access_nin: [String]
-  property_type_in: [String]
-  accommodates_exists: Boolean
-  calendar_last_scraped_nin: [DateTime]
-  notes_ne: String
-  images_exists: Boolean
-  space_nin: [String]
-  address: ListingsAndReviewAddressQueryInput
-  cancellation_policy_lte: String
-  beds_in: [Int]
-  number_of_reviews_in: [Int]
-  monthly_price_gte: Decimal
-  interaction: String
-  minimum_nights_gte: String
-  property_type_gte: String
-  _id_lt: String
-  price_nin: [Decimal]
-  space_lte: String
-  bathrooms_in: [Decimal]
-  bedrooms_nin: [Int]
-  amenities_exists: Boolean
-  notes_lt: String
-  amenities_nin: [String]
-  space_gte: String
-  security_deposit_in: [Decimal]
-  maximum_nights: String
-  bed_type: String
-  weekly_price_in: [Decimal]
-  neighborhood_overview_exists: Boolean
-  reviews_nin: [ListingsAndReviewReviewQueryInput]
-  number_of_reviews_ne: Int
-  property_type_nin: [String]
-  summary: String
-  last_scraped_lt: DateTime
-  cancellation_policy: String
-  first_review_gte: DateTime
-  extra_people: Decimal
-  price_ne: Decimal
-  listing_url_in: [String]
-  last_scraped_nin: [DateTime]
-  minimum_nights_gt: String
-  house_rules_exists: Boolean
-  interaction_lte: String
-  last_review_nin: [DateTime]
-  beds_lt: Int
-  cleaning_fee_lte: Decimal
-  bathrooms_lte: Decimal
-  calendar_last_scraped_in: [DateTime]
-  guests_included_gt: Decimal
-  availability: ListingsAndReviewAvailabilityQueryInput
-  room_type_in: [String]
-  bathrooms_lt: Decimal
-  price_gte: Decimal
-  last_review_exists: Boolean
-  number_of_reviews_nin: [Int]
-  property_type_exists: Boolean
-  summary_lte: String
-  price_lt: Decimal
-  description: String
-  availability_exists: Boolean
-  neighborhood_overview_lt: String
-  description_lte: String
-  calendar_last_scraped_gte: DateTime
-  AND: [ListingsAndReviewQueryInput!]
-  last_review: DateTime
-  listing_url_gte: String
-  calendar_last_scraped_gt: DateTime
-  transit_ne: String
-  description_lt: String
-  interaction_exists: Boolean
-  cleaning_fee_ne: Decimal
-  first_review_exists: Boolean
-  house_rules_lt: String
-  host: ListingsAndReviewHostQueryInput
-  weekly_price_lt: Decimal
-  bed_type_ne: String
-  last_scraped_gte: DateTime
-  room_type_lt: String
-  neighborhood_overview_ne: String
-  calendar_last_scraped_ne: DateTime
-  beds_gte: Int
-  accommodates_gt: Int
-  extra_people_in: [Decimal]
-  house_rules: String
-  minimum_nights_nin: [String]
-  summary_lt: String
-  room_type_ne: String
-  cancellation_policy_gte: String
-  monthly_price_lt: Decimal
-  weekly_price_exists: Boolean
-  minimum_nights: String
-  transit_in: [String]
-  interaction_ne: String
-  name_gt: String
-  space_exists: Boolean
-  images: ListingsAndReviewImageQueryInput
-  last_scraped_lte: DateTime
-  price_lte: Decimal
-  summary_gte: String
-  extra_people_ne: Decimal
-  guests_included: Decimal
-  minimum_nights_lte: String
-  house_rules_gte: String
-  transit_gte: String
-  first_review_lt: DateTime
-  description_ne: String
-  extra_people_exists: Boolean
-  calendar_last_scraped: DateTime
-  bed_type_exists: Boolean
-  name_in: [String]
-  extra_people_gte: Decimal
-  interaction_in: [String]
-  address_exists: Boolean
-  price_exists: Boolean
-  last_scraped_gt: DateTime
-  bedrooms: Int
-  bed_type_lte: String
-  beds: Int
-  summary_in: [String]
-  space_in: [String]
-  house_rules_gt: String
-  security_deposit_lt: Decimal
-  accommodates_nin: [Int]
-  monthly_price_gt: Decimal
-  maximum_nights_lte: String
-  notes_nin: [String]
-  space_gt: String
-  neighborhood_overview_gt: String
-  last_review_gt: DateTime
-  bed_type_gt: String
-  bed_type_gte: String
-  cancellation_policy_nin: [String]
-  cleaning_fee_lt: Decimal
-  accommodates_in: [Int]
-  name_exists: Boolean
-  listing_url_exists: Boolean
-  bathrooms_ne: Decimal
-  price_gt: Decimal
-  monthly_price: Decimal
-  guests_included_lt: Decimal
-  space_lt: String
-  bathrooms_gt: Decimal
-  property_type_gt: String
-  review_scores_exists: Boolean
-  maximum_nights_in: [String]
-  interaction_gt: String
-  bed_type_in: [String]
-  access_gt: String
-  last_scraped_in: [DateTime]
-  extra_people_gt: Decimal
-  security_deposit_ne: Decimal
-  minimum_nights_in: [String]
-  weekly_price_ne: Decimal
-  monthly_price_nin: [Decimal]
-  reviews_exists: Boolean
-  cleaning_fee_nin: [Decimal]
+  images_unset: Boolean
   last_scraped: DateTime
-  house_rules_nin: [String]
-  monthly_price_in: [Decimal]
-  listing_url: String
-  property_type_lt: String
+  images: ListingsAndReviewImageUpdateInput
+  notes_unset: Boolean
+  guests_included: Decimal
+  access_unset: Boolean
+  neighborhood_overview: String
+  transit_unset: Boolean
+  bedrooms_unset: Boolean
+  review_scores_unset: Boolean
+  description: String
+  maximum_nights: String
+  last_scraped_unset: Boolean
+  room_type: String
+  address_unset: Boolean
+  host_unset: Boolean
+  beds: Int
+  extra_people_unset: Boolean
+  bed_type: String
+  availability: ListingsAndReviewAvailabilityUpdateInput
+  room_type_unset: Boolean
+  house_rules: String
+  interaction: String
+  reviews_unset: Boolean
+  review_scores: ListingsAndReviewReview_scoreUpdateInput
+  notes: String
+  space: String
+  bathrooms: Decimal
+  price_unset: Boolean
+  maximum_nights_unset: Boolean
+  price: Decimal
+  accommodates_inc: Int
+  bed_type_unset: Boolean
+  property_type_unset: Boolean
+  _id_unset: Boolean
+  listing_url_unset: Boolean
+  reviews: [ListingsAndReviewReviewUpdateInput]
+  bedrooms_inc: Int
+  beds_inc: Int
+  house_rules_unset: Boolean
+  amenities_unset: Boolean
+  number_of_reviews_unset: Boolean
+  accommodates: Int
+  last_review: DateTime
+  interaction_unset: Boolean
+  name: String
   number_of_reviews: Int
-  room_type_gt: String
-  first_review_nin: [DateTime]
-  room_type_exists: Boolean
-  security_deposit_lte: Decimal
-  beds_lte: Int
-  interaction_nin: [String]
-  host_exists: Boolean
-  security_deposit: Decimal
-  last_scraped_ne: DateTime
-  first_review_in: [DateTime]
-  notes_lte: String
-  notes_gte: String
-  calendar_last_scraped_lte: DateTime
-  reviews: [ListingsAndReviewReviewQueryInput]
-  bedrooms_gte: Int
-  description_nin: [String]
-  cleaning_fee_in: [Decimal]
-  accommodates_lte: Int
-  bedrooms_in: [Int]
-  neighborhood_overview_lte: String
-  number_of_reviews_gte: Int
-  last_scraped_exists: Boolean
-  last_review_lt: DateTime
-  access_lte: String
-  transit: String
-  minimum_nights_exists: Boolean
-  minimum_nights_lt: String
-  maximum_nights_lt: String
-  beds_ne: Int
-  security_deposit_nin: [Decimal]
-  listing_url_ne: String
-  room_type_nin: [String]
-  cancellation_policy_ne: String
-  guests_included_in: [Decimal]
-  name_ne: String
-  weekly_price_gt: Decimal
-  summary_ne: String
-  bedrooms_gt: Int
-  reviews_in: [ListingsAndReviewReviewQueryInput]
-  property_type_lte: String
-  notes_in: [String]
-  interaction_lt: String
-  house_rules_lte: String
-  transit_lte: String
   _id: String
-  calendar_last_scraped_exists: Boolean
-  notes_exists: Boolean
-  minimum_nights_ne: String
-}
-
-type ListingsAndReviewAddress {
-  country: String
-  country_code: String
-  government_area: String
-  location: ListingsAndReviewAddressLocation
-  market: String
-  street: String
-  suburb: String
+  space_unset: Boolean
+  listing_url: String
+  property_type: String
+  address: ListingsAndReviewAddressUpdateInput
+  name_unset: Boolean
+  beds_unset: Boolean
+  bedrooms: Int
+  amenities: [String]
+  host: ListingsAndReviewHostUpdateInput
+  cleaning_fee_unset: Boolean
+  last_review_unset: Boolean
+  first_review_unset: Boolean
+  minimum_nights: String
+  monthly_price_unset: Boolean
+  transit: String
+  accommodates_unset: Boolean
+  number_of_reviews_inc: Int
+  monthly_price: Decimal
+  security_deposit: Decimal
+  security_deposit_unset: Boolean
+  summary_unset: Boolean
+  guests_included_unset: Boolean
+  first_review: DateTime
+  access: String
+  minimum_nights_unset: Boolean
+  cancellation_policy: String
+  neighborhood_overview_unset: Boolean
+  summary: String
+  description_unset: Boolean
 }
 
 type ListingsAndReviewAddressLocation {
@@ -976,318 +1202,46 @@ type ListingsAndReviewAddressLocation {
   type: String
 }
 
-input ListingsAndReviewReview_scoreUpdateInput {
-  review_scores_location_inc: Int
-  review_scores_communication_unset: Boolean
-  review_scores_accuracy: Int
-  review_scores_checkin: Int
-  review_scores_value_unset: Boolean
-  review_scores_cleanliness: Int
-  review_scores_cleanliness_inc: Int
-  review_scores_cleanliness_unset: Boolean
-  review_scores_rating_inc: Int
-  review_scores_rating_unset: Boolean
-  review_scores_checkin_unset: Boolean
-  review_scores_checkin_inc: Int
-  review_scores_value: Int
-  review_scores_value_inc: Int
-  review_scores_communication_inc: Int
-  review_scores_accuracy_unset: Boolean
-  review_scores_communication: Int
-  review_scores_location: Int
-  review_scores_rating: Int
-  review_scores_accuracy_inc: Int
-  review_scores_location_unset: Boolean
-}
-
-input ListingsAndReviewAddressUpdateInput {
-  street_unset: Boolean
-  country_code: String
-  suburb: String
-  suburb_unset: Boolean
-  government_area_unset: Boolean
-  market_unset: Boolean
-  country_code_unset: Boolean
-  country_unset: Boolean
-  location: ListingsAndReviewAddressLocationUpdateInput
-  government_area: String
-  country: String
-  street: String
-  location_unset: Boolean
-  market: String
-}
-
-enum ListingsAndReviewSortByInput {
-  INTERACTION_DESC
-  LAST_SCRAPED_ASC
-  MINIMUM_NIGHTS_DESC
-  NOTES_ASC
-  TRANSIT_DESC
-  _ID_DESC
-  CALENDAR_LAST_SCRAPED_DESC
-  NEIGHBORHOOD_OVERVIEW_DESC
-  NUMBER_OF_REVIEWS_ASC
-  NUMBER_OF_REVIEWS_DESC
-  PRICE_ASC
-  SUMMARY_ASC
-  WEEKLY_PRICE_ASC
-  BATHROOMS_ASC
-  MONTHLY_PRICE_DESC
-  FIRST_REVIEW_ASC
-  SECURITY_DEPOSIT_DESC
-  BEDS_DESC
-  CLEANING_FEE_ASC
-  MONTHLY_PRICE_ASC
-  ROOM_TYPE_ASC
-  CANCELLATION_POLICY_DESC
-  FIRST_REVIEW_DESC
-  NAME_DESC
-  ACCESS_ASC
-  BED_TYPE_ASC
-  EXTRA_PEOPLE_ASC
-  GUESTS_INCLUDED_DESC
-  _ID_ASC
-  LISTING_URL_ASC
-  NEIGHBORHOOD_OVERVIEW_ASC
-  ROOM_TYPE_DESC
-  TRANSIT_ASC
-  CLEANING_FEE_DESC
-  INTERACTION_ASC
-  NAME_ASC
-  WEEKLY_PRICE_DESC
-  DESCRIPTION_ASC
-  DESCRIPTION_DESC
-  BED_TYPE_DESC
-  BEDROOMS_ASC
-  BEDROOMS_DESC
-  LAST_SCRAPED_DESC
-  PROPERTY_TYPE_DESC
-  ACCESS_DESC
-  BATHROOMS_DESC
-  LAST_REVIEW_DESC
-  SPACE_DESC
-  ACCOMMODATES_ASC
-  EXTRA_PEOPLE_DESC
-  SUMMARY_DESC
-  HOUSE_RULES_DESC
-  MAXIMUM_NIGHTS_ASC
-  CANCELLATION_POLICY_ASC
-  LAST_REVIEW_ASC
-  MAXIMUM_NIGHTS_DESC
-  MINIMUM_NIGHTS_ASC
-  PRICE_DESC
-  ACCOMMODATES_DESC
-  CALENDAR_LAST_SCRAPED_ASC
-  PROPERTY_TYPE_ASC
-  BEDS_ASC
-  LISTING_URL_DESC
-  NOTES_DESC
-  SECURITY_DEPOSIT_ASC
-  SPACE_ASC
-  GUESTS_INCLUDED_ASC
-  HOUSE_RULES_ASC
-}
-
-input ListingsAndReviewHostQueryInput {
-  host_about_in: [String]
-  host_response_rate_ne: Int
-  host_about_gte: String
-  host_neighbourhood_nin: [String]
-  host_response_time_gt: String
-  host_location_exists: Boolean
-  host_response_rate_gte: Int
-  host_neighbourhood: String
-  host_url_gte: String
-  host_url_exists: Boolean
-  host_thumbnail_url_nin: [String]
-  host_response_rate_gt: Int
-  host_id_in: [String]
-  host_response_time_in: [String]
-  host_name_lt: String
-  host_thumbnail_url_gt: String
-  host_url_nin: [String]
-  host_verifications_exists: Boolean
-  host_name: String
-  host_total_listings_count_lt: Int
-  host_picture_url_nin: [String]
-  host_url_lt: String
-  host_neighbourhood_gt: String
-  host_id_lt: String
-  host_url_gt: String
-  host_location: String
-  host_listings_count_nin: [Int]
-  host_url_ne: String
-  host_name_gt: String
-  host_url_in: [String]
-  host_location_in: [String]
-  host_about_lte: String
-  host_id_gt: String
-  host_total_listings_count_exists: Boolean
-  host_location_lte: String
-  host_response_rate_nin: [Int]
-  host_thumbnail_url_in: [String]
-  host_verifications_in: [String]
-  AND: [ListingsAndReviewHostQueryInput!]
-  host_neighbourhood_ne: String
-  host_total_listings_count_ne: Int
-  host_is_superhost: Boolean
-  host_response_rate_in: [Int]
-  host_id_nin: [String]
-  host_name_lte: String
-  host_response_rate_lt: Int
-  host_thumbnail_url: String
-  host_response_time_nin: [String]
-  host_total_listings_count_gt: Int
-  host_name_in: [String]
-  host_listings_count: Int
-  host_listings_count_lte: Int
-  host_picture_url: String
-  host_neighbourhood_in: [String]
-  host_neighbourhood_lte: String
-  host_picture_url_lt: String
-  host_name_ne: String
-  OR: [ListingsAndReviewHostQueryInput!]
-  host_thumbnail_url_gte: String
-  host_total_listings_count: Int
-  host_about_exists: Boolean
-  host_picture_url_in: [String]
-  host_listings_count_lt: Int
-  host_response_time_exists: Boolean
-  host_total_listings_count_lte: Int
-  host_response_time: String
-  host_location_nin: [String]
-  host_id_exists: Boolean
-  host_neighbourhood_exists: Boolean
-  host_identity_verified_exists: Boolean
-  host_has_profile_pic_exists: Boolean
-  host_has_profile_pic: Boolean
-  host_is_superhost_ne: Boolean
-  host_about_gt: String
-  host_id_lte: String
-  host_id_gte: String
-  host_neighbourhood_lt: String
-  host_listings_count_gt: Int
-  host_thumbnail_url_lte: String
-  host_total_listings_count_in: [Int]
-  host_verifications: [String]
-  host_neighbourhood_gte: String
-  host_location_ne: String
-  host_identity_verified_ne: Boolean
-  host_location_gt: String
-  host_name_exists: Boolean
-  host_response_time_gte: String
-  host_response_time_lt: String
-  host_thumbnail_url_lt: String
-  host_thumbnail_url_exists: Boolean
-  host_response_time_ne: String
-  host_name_nin: [String]
-  host_id_ne: String
-  host_listings_count_ne: Int
-  host_location_gte: String
-  host_picture_url_ne: String
-  host_about: String
-  host_verifications_nin: [String]
-  host_url_lte: String
-  host_listings_count_exists: Boolean
-  host_has_profile_pic_ne: Boolean
-  host_picture_url_gte: String
-  host_about_nin: [String]
-  host_is_superhost_exists: Boolean
-  host_url: String
-  host_response_rate_exists: Boolean
-  host_listings_count_in: [Int]
-  host_name_gte: String
-  host_location_lt: String
-  host_total_listings_count_nin: [Int]
-  host_response_time_lte: String
-  host_id: String
-  host_picture_url_lte: String
-  host_total_listings_count_gte: Int
-  host_picture_url_gt: String
-  host_picture_url_exists: Boolean
-  host_thumbnail_url_ne: String
-  host_listings_count_gte: Int
-  host_about_lt: String
-  host_response_rate: Int
-  host_response_rate_lte: Int
-  host_about_ne: String
-  host_identity_verified: Boolean
-}
-
-scalar DateTime
-
-input ListingsAndReviewHostUpdateInput {
-  host_response_rate_inc: Int
-  host_identity_verified_unset: Boolean
-  host_name_unset: Boolean
-  host_thumbnail_url_unset: Boolean
-  host_name: String
-  host_listings_count_unset: Boolean
-  host_about_unset: Boolean
-  host_response_rate: Int
-  host_total_listings_count: Int
-  host_identity_verified: Boolean
-  host_listings_count: Int
-  host_has_profile_pic_unset: Boolean
-  host_is_superhost: Boolean
-  host_location: String
-  host_total_listings_count_unset: Boolean
-  host_response_rate_unset: Boolean
-  host_total_listings_count_inc: Int
-  host_location_unset: Boolean
-  host_id_unset: Boolean
-  host_response_time: String
-  host_listings_count_inc: Int
-  host_neighbourhood: String
-  host_about: String
-  host_has_profile_pic: Boolean
-  host_url: String
-  host_neighbourhood_unset: Boolean
-  host_picture_url: String
-  host_thumbnail_url: String
-  host_is_superhost_unset: Boolean
-  host_picture_url_unset: Boolean
-  host_response_time_unset: Boolean
-  host_verifications_unset: Boolean
-  host_url_unset: Boolean
-  host_id: String
-  host_verifications: [String]
-}
-
-input ListingsAndReviewReview_scoreInsertInput {
-  review_scores_accuracy: Int
-  review_scores_checkin: Int
-  review_scores_cleanliness: Int
-  review_scores_communication: Int
-  review_scores_location: Int
-  review_scores_rating: Int
-  review_scores_value: Int
-}
-
-input ListingsAndReviewAddressLocationQueryInput {
-  coordinates_in: [Float]
-  is_location_exact_exists: Boolean
-  type_gt: String
-  AND: [ListingsAndReviewAddressLocationQueryInput!]
-  type_lt: String
-  type: String
-  type_ne: String
-  coordinates_nin: [Float]
-  coordinates: [Float]
-  type_nin: [String]
-  coordinates_exists: Boolean
-  is_location_exact: Boolean
-  type_in: [String]
-  type_lte: String
-  is_location_exact_ne: Boolean
-  type_gte: String
-  type_exists: Boolean
-  OR: [ListingsAndReviewAddressLocationQueryInput!]
-}
-
-type ListingsAndReviewAvailability {
-  availability_30: Int
-  availability_365: Int
-  availability_60: Int
-  availability_90: Int
+input ListingsAndReviewInsertInput {
+  cancellation_policy: String
+  name: String
+  maximum_nights: String
+  transit: String
+  availability: ListingsAndReviewAvailabilityInsertInput
+  bathrooms: Decimal
+  guests_included: Decimal
+  bed_type: String
+  _id: String
+  property_type: String
+  last_scraped: DateTime
+  space: String
+  interaction: String
+  minimum_nights: String
+  number_of_reviews: Int
+  weekly_price: Decimal
+  address: ListingsAndReviewAddressInsertInput
+  extra_people: Decimal
+  cleaning_fee: Decimal
+  monthly_price: Decimal
+  price: Decimal
+  security_deposit: Decimal
+  first_review: DateTime
+  summary: String
+  reviews: [ListingsAndReviewReviewInsertInput]
+  house_rules: String
+  review_scores: ListingsAndReviewReview_scoreInsertInput
+  host: ListingsAndReviewHostInsertInput
+  access: String
+  last_review: DateTime
+  listing_url: String
+  beds: Int
+  amenities: [String]
+  notes: String
+  neighborhood_overview: String
+  calendar_last_scraped: DateTime
+  bedrooms: Int
+  room_type: String
+  accommodates: Int
+  description: String
+  images: ListingsAndReviewImageInsertInput
 }
