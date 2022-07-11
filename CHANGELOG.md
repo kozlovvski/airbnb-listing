@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/kozlovvski/airbnb-listing/compare/v0.2.0...v0.2.1) (2022-07-11)
+
+
+### Reverts
+
+* chore(main): release 0.2.0 ([#14](https://github.com/kozlovvski/airbnb-listing/issues/14)) ([#16](https://github.com/kozlovvski/airbnb-listing/issues/16)) ([aaa0a7c](https://github.com/kozlovvski/airbnb-listing/commit/aaa0a7c6fbfb02fa8102ed90c2f939a0f637c1f9))
+
 ## [0.1.1](https://github.com/kozlovvski/airbnb-listing/compare/v0.1.0...v0.1.1) (2022-07-10)
 
 
