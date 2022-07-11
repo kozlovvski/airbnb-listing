@@ -1,34 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Airbnb Listing &middot; ![GitHub package.json version](https://img.shields.io/github/package-json/v/kozlovvski/airbnb-listing) ![Codecov](https://img.shields.io/codecov/c/gh/kozlovvski/airbnb-listing?logo=codecov) ![Website](https://img.shields.io/website?url=https%3A%2F%2Fairbnb-listing.vercel.app%2F)
 
-## Getting Started
+Airbnb rentals listing with MongoDB Atlas + GraphQL backend & Next.js frontend. Database is built with [Sample AirBnB Listings Dataset](https://www.mongodb.com/docs/atlas/sample-data/sample-airbnb/#std-label-sample-airbnb) from MongoDB Docs
 
-First, run the development server:
+Live demo: https://airbnb-listing.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Backend
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- [MongoDB Atlas](https://www.mongodb.com/atlas/database)
+- [MongoDB Atlas GraphQL API](https://www.mongodb.com/docs/atlas/app-services/graphql/) (configuration can be found in `/mongodb` directory)
+- [Next.js API Route](https://nextjs.org/docs/api-routes/introduction) serving as a [reverse proxy](https://www.nginx.com/resources/glossary/reverse-proxy-server/) for the MongoDB Atlas GraphQL API (`api/index.page.js`).
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Frontend
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Query](https://react-query-v2.tanstack.com/)
+- [Chakra UI](https://chakra-ui.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [next-i18next](https://github.com/i18next/next-i18next)
+- [next-pwa](https://github.com/shadowwalker/next-pwa)
 
-## Learn More
+### Tools
 
-To learn more about Next.js, take a look at the following resources:
+- [GraphQL Code Generator](https://www.graphql-code-generator.com/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Tests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [Jest](https://jestjs.io/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
-## Deploy on Vercel
+### CI & Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Vercel](https://vercel.com/docs)
+- [Codecov](https://about.codecov.io/)
+- [GitHub Actions](https://github.com/features/actions)
