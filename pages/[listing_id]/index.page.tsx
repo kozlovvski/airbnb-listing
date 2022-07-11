@@ -1,7 +1,6 @@
 import { useGetListingsQuery } from 'generated/graphql-codegen';
 import { ListingListLayout } from 'layouts/ListingListLayout';
 import type { GetServerSideProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { dehydrate, QueryClient } from 'react-query';
 import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 
@@ -13,14 +12,13 @@ DetailedListingPage.getLayout = (page) => (
   <ListingListLayout>{page}</ListingListLayout>
 );
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(useGetListingsQuery.getKey(), () =>
-    useGetListingsQuery.fetcher()()
+  queryClient.prefetchQuery(useGetListingsQuery.getKey(), () =>
+    useGetListingsQuery.fetcher()
   );
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ['common', 'listings'])),
       dehydratedState: dehydrate(queryClient),
     },
   };
