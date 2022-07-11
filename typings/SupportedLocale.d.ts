@@ -1,1 +1,0 @@
-type SupportedLocale = 'en' | 'pl';
