@@ -1,0 +1,13 @@
+{
+  "bathroom": {
+    "singular": "łazienka",
+    "plural": "łazienki",
+    "pluralAlternative": "łazienek"
+  },
+  "bed": {
+    "singular": "łóżko",
+    "plural": "łóżka",
+    "pluralAlternative": "łóżek"
+  },
+  "night": "noc"
+}

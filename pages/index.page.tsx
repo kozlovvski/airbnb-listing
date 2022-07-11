@@ -2,6 +2,7 @@ import { useInfiniteGetListingsQuery } from 'components/listings/ListingList/Lis
 import { useGetListingsQuery } from 'generated/graphql-codegen';
 import { ListingListLayout } from 'layouts/ListingListLayout';
 import type { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { dehydrate, QueryClient } from 'react-query';
 import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 
@@ -11,14 +12,15 @@ const Home: NextPageWithLayout = () => {
 
 Home.getLayout = (page) => <ListingListLayout>{page}</ListingListLayout>;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const queryClient = new QueryClient();
-  queryClient.prefetchQuery(useInfiniteGetListingsQuery.getKey(), () =>
-    useGetListingsQuery.fetcher()
+  await queryClient.prefetchQuery(useInfiniteGetListingsQuery.getKey(), () =>
+    useGetListingsQuery.fetcher()()
   );
 
   return {
     props: {
+      ...(await serverSideTranslations(locale!, ['common', 'listings'])),
       dehydratedState: dehydrate(queryClient),
     },
   };
