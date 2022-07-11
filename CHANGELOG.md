@@ -1,12 +1,5 @@
 # Changelog
 
-## [0.2.0](https://github.com/kozlovvski/airbnb-listing/compare/v0.1.1...v0.2.0) (2022-07-11)
-
-
-### Features
-
-* add i18n ([#13](https://github.com/kozlovvski/airbnb-listing/issues/13)) ([cf68644](https://github.com/kozlovvski/airbnb-listing/commit/cf686441ce1dd466c27dd9a269ded0a092a7a219))
-
 ## [0.1.1](https://github.com/kozlovvski/airbnb-listing/compare/v0.1.0...v0.1.1) (2022-07-10)
 
 
