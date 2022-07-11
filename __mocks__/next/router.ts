@@ -1,5 +1,5 @@
 export * from 'next/router';
 
-export const useRouter = () => ({
+export const useRouter = jest.fn(() => ({
   locale: 'pl',
-});
+}));

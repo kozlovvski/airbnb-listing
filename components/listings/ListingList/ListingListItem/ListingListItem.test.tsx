@@ -1,11 +1,13 @@
+import { useRouter } from '__mocks__/next/router';
 import { theme } from '@chakra-ui/react';
-import { render } from '@testing-library/react';
+import { render, renderHook } from '@testing-library/react';
 import { mockedListing } from 'tests/data/listings';
-import { wrapper } from 'tests/testUtils';
+import { i18nForTests, wrapper } from 'tests/testUtils';
 import { DefinedListing } from 'typings/listings/Listing';
 
 import ListingListItem from './ListingListItem.component';
 import { getListingThumbnail, stringToColor } from './ListingListItem.helpers';
+import { useJSXForLocalizedCountable } from './ListingListItem.hooks';
 
 describe('ListingListItem', () => {
   it('should render a list item', () => {
@@ -100,5 +102,134 @@ describe('stringToColor', () => {
     const result = stringToColor(str);
     // then
     expect(result).toMatch(/^#[0-9A-F]{6}$/i);
+  });
+});
+
+describe('useJSXForLocalizedCountable', () => {
+  it('should throw when locale is undefined', () => {
+    // given
+    useRouter.mockReturnValue({} as any);
+    const name = 'bed';
+    const countable = 1;
+    const namespace = 'listings';
+    // when
+    // then
+    expect(() =>
+      renderHook(() => useJSXForLocalizedCountable(name, countable, namespace))
+    ).toThrow();
+  });
+});
+
+describe('getLocalizedCountable', () => {
+  const { getLocalizedCountable } = useJSXForLocalizedCountable;
+
+  describe('pl locale', () => {
+    beforeAll(() => {
+      i18nForTests.changeLanguage('pl');
+    });
+
+    afterAll(() => {
+      i18nForTests.changeLanguage('cimode');
+    });
+
+    it('should return a correct string for a singular countable', () => {
+      // given
+      const name = 'bed';
+      const countable = 1;
+      const namespace = 'listings';
+      const locale = 'pl';
+      // when
+      const result = getLocalizedCountable(
+        name,
+        countable,
+        namespace,
+        locale,
+        i18nForTests.t
+      );
+      // then
+      expect(result).toBe('łóżko');
+    });
+
+    it('should return a correct string for a countable with last digit in 2-4 range', () => {
+      // given
+      const name = 'bathroom';
+      const countable = 23;
+      const namespace = 'listings';
+      const locale = 'pl';
+      // when
+      const result = getLocalizedCountable(
+        name,
+        countable,
+        namespace,
+        locale,
+        i18nForTests.t
+      );
+      // then
+      expect(result).toBe('łazienki');
+    });
+
+    it('should return a correct string for a plural countable', () => {
+      // given
+      const name = 'bathroom';
+      const countable = 5;
+      const namespace = 'listings';
+      const locale = 'pl';
+      // when
+      const result = getLocalizedCountable(
+        name,
+        countable,
+        namespace,
+        locale,
+        i18nForTests.t
+      );
+      // then
+      expect(result).toBe('łazienek');
+    });
+  });
+
+  describe('en locale', () => {
+    beforeAll(() => {
+      i18nForTests.changeLanguage('en');
+    });
+
+    afterAll(() => {
+      i18nForTests.changeLanguage('cimode');
+    });
+
+    it('should return a correct string for a singular countable', () => {
+      // given
+      const name = 'bathroom';
+      const countable = 1;
+      const namespace = 'listings';
+      const locale = 'en';
+      // when
+      const result = getLocalizedCountable(
+        name,
+        countable,
+        namespace,
+        locale,
+        i18nForTests.t
+      );
+      // then
+      expect(result).toBe('bathroom');
+    });
+
+    it('should return a correct string for a plural countable', () => {
+      // given
+      const name = 'bed';
+      const countable = 27;
+      const namespace = 'listings';
+      const locale = 'en';
+      // when
+      const result = getLocalizedCountable(
+        name,
+        countable,
+        namespace,
+        locale,
+        i18nForTests.t
+      );
+      // then
+      expect(result).toBe('beds');
+    });
   });
 });

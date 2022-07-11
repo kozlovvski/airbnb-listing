@@ -1,6 +1,7 @@
 import { Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { TFunction } from 'react-i18next';
 
 const separator = (
   <Text fontSize="xs" mx={1}>
@@ -8,19 +9,13 @@ const separator = (
   </Text>
 );
 
-export const useJSXForLocalizedCountable = (
+const getLocalizedCountable = <Locale extends string = SupportedLocale>(
   name: string,
-  countable: number | null | undefined,
-  namespace = 'listings'
-): JSX.Element | null => {
-  const { t } = useTranslation();
-  const { locale } = useRouter();
-  if (!countable) return null;
-
-  if (!locale) {
-    throw new Error('locale is not defined');
-  }
-
+  countable: number,
+  namespace: string,
+  locale: Locale,
+  t: TFunction
+): string => {
   let localizedCountable: string;
   switch (locale) {
     case 'pl': {
@@ -37,7 +32,7 @@ export const useJSXForLocalizedCountable = (
         break;
       }
 
-      localizedCountable = t(`${namespace}:${name}.plural`);
+      localizedCountable = t(`${namespace}:${name}.pluralAlternative`);
       break;
     }
     case 'en':
@@ -48,6 +43,30 @@ export const useJSXForLocalizedCountable = (
     }
   }
 
+  return localizedCountable;
+};
+
+export const useJSXForLocalizedCountable = (
+  name: string,
+  countable: number | null | undefined,
+  namespace = 'listings'
+): JSX.Element | null => {
+  const { t } = useTranslation();
+  const { locale } = useRouter();
+  if (!countable) return null;
+
+  if (!locale) {
+    throw new Error('locale is not defined');
+  }
+
+  const localizedCountable = getLocalizedCountable(
+    name,
+    countable,
+    namespace,
+    locale,
+    t
+  );
+
   return (
     <>
       {separator}
@@ -57,3 +76,5 @@ export const useJSXForLocalizedCountable = (
     </>
   );
 };
+
+useJSXForLocalizedCountable.getLocalizedCountable = getLocalizedCountable;
