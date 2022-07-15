@@ -25,13 +25,7 @@ const ListingList = ({ pages, onSkeletonInView, selectedId }: Props) => {
       {pages?.map(({ listings }) =>
         listings?.map(
           (listing) =>
-            listing && (
-              <ListingListItem
-                listing={listing}
-                key={listing._id}
-                isSelected={listing._id === selectedId}
-              />
-            )
+            listing && <ListingListItem listing={listing} key={listing._id} />
         )
       )}
       {[...Array(20)].map((_, i) => (

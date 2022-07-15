@@ -1,13 +1,24 @@
 import ListingList from 'components/listings/ListingList/ListingList.component';
+import { motion, Variants } from 'framer-motion';
 import {
   useGetListingsQuery,
   useInfiniteGetListingsQuery,
 } from 'generated/graphql-codegen';
 import type { GetStaticProps } from 'next';
-import { dehydrate, QueryClient } from 'react-query';
+import { dehydrate } from 'react-query';
+import { createQueryClient } from 'services/queryClient.service';
 import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 
-const Home: NextPageWithLayout = () => {
+const animationVariants: Variants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+  },
+};
+
+const Home: NextPageWithLayout = (props) => {
   const { data, fetchNextPage } = useInfiniteGetListingsQuery(
     'pageParam',
     { pageParam: 0 },
@@ -18,11 +29,22 @@ const Home: NextPageWithLayout = () => {
     }
   );
 
-  return <ListingList pages={data?.pages} onSkeletonInView={fetchNextPage} />;
+  return (
+    <motion.div
+      variants={animationVariants}
+      transition={{ type: 'tween', duration: 0.2 }}
+      exit="initial"
+      initial={false}
+      animate="animate"
+      {...props}
+    >
+      <ListingList pages={data?.pages} onSkeletonInView={fetchNextPage} />{' '}
+    </motion.div>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
+  const queryClient = createQueryClient();
   queryClient.prefetchQuery(useInfiniteGetListingsQuery.getKey(), () =>
     useGetListingsQuery.fetcher()
   );
