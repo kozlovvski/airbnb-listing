@@ -1,4 +1,12 @@
-export const endpoint =
-  (process.env.NODE_ENV === 'development' ? 'http://' : 'https://') +
-  process.env.NEXT_PUBLIC_VERCEL_URL +
-  '/api';
+export const endpoint = process.env.NEXT_APP_MONGO_GRAPHQL_ENDPOINT;
+
+const apiKey = process.env.NEXT_APP_MONGO_ATLAS_API_KEY;
+if (!apiKey) {
+  throw new Error('Missing NEXT_APP_MONGO_ATLAS_API_KEY environment variable');
+}
+
+export const fetchParams = {
+  headers: {
+    apiKey,
+  },
+};

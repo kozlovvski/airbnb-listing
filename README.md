@@ -10,7 +10,6 @@ Live demo: https://airbnb-listing.vercel.app
 
 - [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 - [MongoDB Atlas GraphQL API](https://www.mongodb.com/docs/atlas/app-services/graphql/) (configuration can be found in `/mongodb` directory)
-- [Next.js API Route](https://nextjs.org/docs/api-routes/introduction) serving as a [reverse proxy](https://www.nginx.com/resources/glossary/reverse-proxy-server/) for the MongoDB Atlas GraphQL API (`api/index.page.js`).
 
 ### Frontend
 

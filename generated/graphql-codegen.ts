@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from 'react-query';
 
-import { endpoint } from '../graphql/graphql.constants';
+import { endpoint, fetchParams } from '../graphql/graphql.constants';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -17,6 +17,7 @@ function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
   return async (): Promise<TData> => {
     const res = await fetch(endpoint as string, {
       method: 'POST',
+      ...fetchParams,
       body: JSON.stringify({ query, variables }),
     });
 
