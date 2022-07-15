@@ -5,13 +5,13 @@ generates:
   ./generated/graphql-codegen.ts:
     plugins:
       - add:
-          content: "import { endpoint, fetchParams } from '../graphql/graphql.constants';"
+          content: "import { endpoint, getFetchParams } from '../graphql/graphql.constants';"
       - typescript
       - typescript-operations
       - typescript-react-query
     config:
       fetcher:
         endpoint: 'endpoint'
-        fetchParams: 'fetchParams'
+        fetchParams: 'await getFetchParams()'
       exposeQueryKeys: true
       exposeFetcher: true
