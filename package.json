@@ -19,7 +19,6 @@
     "graphql": "^16.5.0",
     "mongodb": "^4.7.0",
     "next": "12.2.0",
-    "next-http-proxy-middleware": "^1.2.4",
     "next-pwa": "^5.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
