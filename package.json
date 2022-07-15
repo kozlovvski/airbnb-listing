@@ -22,7 +22,8 @@
     "next-pwa": "^5.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-query": "^3.39.1"
+    "react-query": "^3.39.1",
+    "realm-web": "^1.7.1"
   },
   "devDependencies": {
     "@emotion/is-prop-valid": "^1.1.3",
