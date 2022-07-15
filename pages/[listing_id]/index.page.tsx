@@ -1,22 +1,33 @@
-import { useGetListingsQuery } from 'generated/graphql-codegen';
-import { ListingListLayout } from 'layouts/ListingListLayout';
-import type { GetServerSideProps } from 'next';
+import { useGetDetailedListingQuery } from 'generated/graphql-codegen';
+import type { GetServerSideProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
-import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 
-const DetailedListingPage: NextPageWithLayout = () => {
-  return <div>listing</div>;
+const DetailedListingPage: NextPage = () => {
+  const { listing_id } = useRouter().query;
+
+  if (Array.isArray(listing_id)) {
+    throw Error('listing_id is an array');
+  }
+
+  const { data } = useGetDetailedListingQuery({ id: listing_id });
+  return <div>{JSON.stringify(data)}</div>;
 };
 
-DetailedListingPage.getLayout = (page) => (
-  <ListingListLayout>{page}</ListingListLayout>
-);
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { listing_id } = params!;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+  if (Array.isArray(listing_id)) {
+    throw Error('listing_id is an array');
+  }
+
   const queryClient = new QueryClient();
-  queryClient.prefetchQuery(useGetListingsQuery.getKey(), () =>
-    useGetListingsQuery.fetcher()
+  queryClient.prefetchQuery(useGetDetailedListingQuery.getKey(), () =>
+    useGetDetailedListingQuery.fetcher({
+      id: listing_id,
+    })
   );
+
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

@@ -1,0 +1,17 @@
+query getDetailedListing($id: String) {
+  listing: listingsAndReview(query: { _id: $id }) {
+    _id
+    name
+    summary
+    property_type
+    price
+    beds
+    bathrooms
+    images {
+      medium_url
+      picture_url
+      thumbnail_url
+      xl_picture_url
+    }
+  }
+}
