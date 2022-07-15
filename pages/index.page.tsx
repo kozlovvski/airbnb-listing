@@ -1,15 +1,25 @@
-import { useInfiniteGetListingsQuery } from 'components/listings/ListingList/ListingList.hooks';
-import { useGetListingsQuery } from 'generated/graphql-codegen';
-import { ListingListLayout } from 'layouts/ListingListLayout';
+import ListingList from 'components/listings/ListingList/ListingList.component';
+import {
+  useGetListingsQuery,
+  useInfiniteGetListingsQuery,
+} from 'generated/graphql-codegen';
 import type { GetStaticProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { NextPageWithLayout } from 'typings/NextPageWithLayout';
 
 const Home: NextPageWithLayout = () => {
-  return <div>home page</div>;
-};
+  const { data, fetchNextPage } = useInfiniteGetListingsQuery(
+    'pageParam',
+    { pageParam: 0 },
+    {
+      getNextPageParam: (_lastpage, pages) => {
+        return pages.length;
+      },
+    }
+  );
 
-Home.getLayout = (page) => <ListingListLayout>{page}</ListingListLayout>;
+  return <ListingList pages={data?.pages} onSkeletonInView={fetchNextPage} />;
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
