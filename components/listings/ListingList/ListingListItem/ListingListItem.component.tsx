@@ -1,13 +1,11 @@
 import { Badge, Flex, Text } from '@chakra-ui/react';
 import { formatPrice } from 'helpers/price.helpers';
 import Link from 'next/link';
-import React, { useMemo, useRef } from 'react';
+import React from 'react';
 import { DefinedListing } from 'typings/listings/Listing';
 
 import { getListingThumbnail, stringToColor } from './ListingListItem.helpers';
 import {
-  ListingListItemContent,
-  ListingListItemContentWrapper,
   ListingListItemTextContainer,
   ListingListItemThumbnail,
   ListingListItemWrapper,
@@ -24,9 +22,8 @@ const separator = (
 );
 
 const ListingListItem = ({ listing }: Props) => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const thumbnail = useMemo(() => getListingThumbnail(listing), [listing]);
   const { name, price, property_type, beds } = listing;
+  const thumbnail = getListingThumbnail(listing);
   const bathrooms = listing.bathrooms ? Number(listing.bathrooms) : undefined;
 
   const bedsContent = beds && (
@@ -48,37 +45,31 @@ const ListingListItem = ({ listing }: Props) => {
   );
 
   return (
-    <Link href={`/${listing._id}`} prefetch={false}>
+    <Link href={`/${listing._id}`} prefetch={false} scroll={false}>
       <ListingListItemWrapper data-testid="listing-list-item">
-        <ListingListItemContentWrapper>
-          <ListingListItemContent ref={contentRef}>
-            <ListingListItemThumbnail src={thumbnail} />
-            <ListingListItemTextContainer>
-              <Flex mb={1}>
-                <Badge color={stringToColor(property_type)}>
-                  {property_type}
-                </Badge>
-                {bedsContent}
-                {bathroomsContent}
-              </Flex>
-              <Text
-                fontWeight="bold"
-                textOverflow="ellipsis"
-                overflow="hidden"
-                whiteSpace="nowrap"
-              >
-                {name}
-              </Text>
-              <Text fontSize="sm">
-                {formatPrice(price)}
-                <Text as="span" color="gray.500">
-                  {' '}
-                  / night
-                </Text>
-              </Text>
-            </ListingListItemTextContainer>
-          </ListingListItemContent>
-        </ListingListItemContentWrapper>
+        <ListingListItemThumbnail src={thumbnail} />
+        <ListingListItemTextContainer>
+          <Flex mb={1}>
+            <Badge color={stringToColor(property_type)}>{property_type}</Badge>
+            {bedsContent}
+            {bathroomsContent}
+          </Flex>
+          <Text
+            fontWeight="bold"
+            textOverflow="ellipsis"
+            overflow="hidden"
+            whiteSpace="nowrap"
+          >
+            {name}
+          </Text>
+          <Text fontSize="sm">
+            {formatPrice(price)}
+            <Text as="span" color="gray.500">
+              {' '}
+              / night
+            </Text>
+          </Text>
+        </ListingListItemTextContainer>
       </ListingListItemWrapper>
     </Link>
   );

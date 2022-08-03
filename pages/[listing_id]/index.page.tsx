@@ -1,28 +1,38 @@
-import { motion } from 'framer-motion';
+import { getListingThumbnail } from 'components/listings/ListingList/ListingListItem/ListingListItem.helpers';
 import { useGetDetailedListingQuery } from 'generated/graphql-codegen';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useRef } from 'react';
+
+import {
+  detailedListingAnimationVariants,
+  DetailedListingPageImage,
+  DetailedListingPageWrapper,
+} from './index.styles';
 
 const DetailedListingPage: NextPage = (props) => {
-  const { listing_id } = useRouter().query;
+  const router = useRouter();
+  const id = useRef(router.query.listing_id as string);
+  const listing = useGetDetailedListingQuery({ id: id.current }).data?.listing;
 
-  if (Array.isArray(listing_id)) {
-    throw Error('listing_id is an array');
+  if (!listing) {
+    return null;
   }
 
-  const { data } = useGetDetailedListingQuery({ id: listing_id });
+  const thumbnail = getListingThumbnail(listing);
+
   return (
-    <motion.div
+    <DetailedListingPageWrapper
       transition={{ type: 'tween', duration: 0.2 }}
-      exit={{ y: 60 }}
-      initial={{ y: 60 }}
-      animate={{
-        y: 0,
-      }}
+      exit="initial"
+      initial="initial"
+      animate="animate"
+      variants={detailedListingAnimationVariants}
       {...props}
     >
-      {JSON.stringify(data)}
-    </motion.div>
+      <DetailedListingPageImage src={thumbnail} />
+      {JSON.stringify(listing)}
+    </DetailedListingPageWrapper>
   );
 };
 

@@ -29,12 +29,16 @@ const Home: NextPageWithLayout = (props) => {
     }
   );
 
+  if (!Array.isArray(data?.pages)) {
+    return null;
+  }
+
   return (
     <motion.div
       variants={animationVariants}
       transition={{ type: 'tween', duration: 0.2 }}
       exit="initial"
-      initial={false}
+      initial="initial"
       animate="animate"
       {...props}
     >
