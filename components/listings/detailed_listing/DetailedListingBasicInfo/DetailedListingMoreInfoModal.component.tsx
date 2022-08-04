@@ -19,7 +19,7 @@ type Props = {
 
 const DetailedListingMoreInfoModal = ({ listing }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { description, security_deposit } = listing;
+  const { description, security_deposit, house_rules } = listing;
 
   return (
     <>
@@ -45,7 +45,15 @@ const DetailedListingMoreInfoModal = ({ listing }: Props) => {
               Description
             </Text>
             <Text>{description}</Text>
-            {security_deposit && (
+            {house_rules && (
+              <>
+                <Text mt={4} mb={2} fontWeight="bold">
+                  House rules
+                </Text>
+                <Text>{house_rules}</Text>
+              </>
+            )}
+            {security_deposit && Boolean(Number(security_deposit)) && (
               <>
                 <Text mt={4} mb={2} fontWeight="bold">
                   Deposit
