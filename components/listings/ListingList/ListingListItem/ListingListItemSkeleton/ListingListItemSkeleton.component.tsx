@@ -1,6 +1,6 @@
 import { Box, Skeleton, SkeletonText } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import { ListingListItemWrapper } from '../ListingListItem.styles';
 

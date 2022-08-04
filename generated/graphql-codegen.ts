@@ -1346,7 +1346,10 @@ export type GetDetailedListingQuery = {
     _id?: string | null;
     name?: string | null;
     summary?: string | null;
+    description?: string | null;
     property_type?: string | null;
+    house_rules?: string | null;
+    security_deposit?: any | null;
     price?: any | null;
     beds?: number | null;
     bathrooms?: any | null;
@@ -1356,6 +1359,16 @@ export type GetDetailedListingQuery = {
       picture_url?: string | null;
       thumbnail_url?: string | null;
       xl_picture_url?: string | null;
+    } | null;
+    review_scores?: {
+      __typename?: 'ListingsAndReviewReview_score';
+      review_scores_accuracy?: number | null;
+      review_scores_checkin?: number | null;
+      review_scores_cleanliness?: number | null;
+      review_scores_communication?: number | null;
+      review_scores_location?: number | null;
+      review_scores_rating?: number | null;
+      review_scores_value?: number | null;
     } | null;
   } | null;
 };
@@ -1391,7 +1404,10 @@ export const GetDetailedListingDocument = `
     _id
     name
     summary
+    description
     property_type
+    house_rules
+    security_deposit
     price
     beds
     bathrooms
@@ -1400,6 +1416,15 @@ export const GetDetailedListingDocument = `
       picture_url
       thumbnail_url
       xl_picture_url
+    }
+    review_scores {
+      review_scores_accuracy
+      review_scores_checkin
+      review_scores_cleanliness
+      review_scores_communication
+      review_scores_location
+      review_scores_rating
+      review_scores_value
     }
   }
 }

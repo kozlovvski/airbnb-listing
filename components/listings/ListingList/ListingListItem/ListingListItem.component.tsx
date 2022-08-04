@@ -1,10 +1,10 @@
-import { Badge, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
+import PropertyTypeBadge from 'components/listings/PropertyTypeBadge/PropertyTypeBadge.components';
 import { formatPrice } from 'helpers/price.helpers';
 import Link from 'next/link';
-import React from 'react';
 import { DefinedListing } from 'typings/listings/Listing';
 
-import { getListingThumbnail, stringToColor } from './ListingListItem.helpers';
+import { getListingThumbnail } from './ListingListItem.helpers';
 import {
   ListingListItemTextContainer,
   ListingListItemThumbnail,
@@ -50,7 +50,9 @@ const ListingListItem = ({ listing }: Props) => {
         <ListingListItemThumbnail src={thumbnail} />
         <ListingListItemTextContainer>
           <Flex mb={1}>
-            <Badge color={stringToColor(property_type)}>{property_type}</Badge>
+            {property_type && (
+              <PropertyTypeBadge propertyType={property_type} />
+            )}
             {bedsContent}
             {bathroomsContent}
           </Flex>
