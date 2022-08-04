@@ -10,6 +10,7 @@ query getDetailedListing($id: String) {
     price
     beds
     bathrooms
+    room_type
     images {
       medium_url
       picture_url
@@ -17,13 +18,13 @@ query getDetailedListing($id: String) {
       xl_picture_url
     }
     review_scores {
-      review_scores_accuracy
-      review_scores_checkin
-      review_scores_cleanliness
-      review_scores_communication
-      review_scores_location
       review_scores_rating
-      review_scores_value
+    }
+    host {
+      host_listings_count
+      host_location
+      host_name
+      host_thumbnail_url
     }
   }
 }

@@ -1353,6 +1353,7 @@ export type GetDetailedListingQuery = {
     price?: any | null;
     beds?: number | null;
     bathrooms?: any | null;
+    room_type?: string | null;
     images?: {
       __typename?: 'ListingsAndReviewImage';
       medium_url?: string | null;
@@ -1362,13 +1363,14 @@ export type GetDetailedListingQuery = {
     } | null;
     review_scores?: {
       __typename?: 'ListingsAndReviewReview_score';
-      review_scores_accuracy?: number | null;
-      review_scores_checkin?: number | null;
-      review_scores_cleanliness?: number | null;
-      review_scores_communication?: number | null;
-      review_scores_location?: number | null;
       review_scores_rating?: number | null;
-      review_scores_value?: number | null;
+    } | null;
+    host?: {
+      __typename?: 'ListingsAndReviewHost';
+      host_listings_count?: number | null;
+      host_location?: string | null;
+      host_name?: string | null;
+      host_thumbnail_url?: string | null;
     } | null;
   } | null;
 };
@@ -1411,6 +1413,7 @@ export const GetDetailedListingDocument = `
     price
     beds
     bathrooms
+    room_type
     images {
       medium_url
       picture_url
@@ -1418,13 +1421,13 @@ export const GetDetailedListingDocument = `
       xl_picture_url
     }
     review_scores {
-      review_scores_accuracy
-      review_scores_checkin
-      review_scores_cleanliness
-      review_scores_communication
-      review_scores_location
       review_scores_rating
-      review_scores_value
+    }
+    host {
+      host_listings_count
+      host_location
+      host_name
+      host_thumbnail_url
     }
   }
 }

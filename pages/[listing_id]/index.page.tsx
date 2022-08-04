@@ -2,6 +2,7 @@ import { Divider } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import DetailedListingBasicInfo from 'components/listings/detailed_listing/DetailedListingBasicInfo/DetailedListingBasicInfo.component';
 import DetailedListingHero from 'components/listings/detailed_listing/DetailedListingHero/DetailedListingHero.component';
+import DetailedListingHost from 'components/listings/detailed_listing/DetailedListingHost/DetailedListingHost.component';
 import { useGetDetailedListingQuery } from 'generated/graphql-codegen';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -34,6 +35,8 @@ const DetailedListingPage: NextPage = (props) => {
       <DetailedListingHero listing={listing} />
       <Content>
         <DetailedListingBasicInfo listing={listing} />
+        <Divider my={4} />
+        <DetailedListingHost listing={listing} />
         <Divider my={4} />
       </Content>
     </DetailedListingPageWrapper>
