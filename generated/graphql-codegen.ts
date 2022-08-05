@@ -1354,6 +1354,7 @@ export type GetDetailedListingQuery = {
     beds?: number | null;
     bathrooms?: any | null;
     room_type?: string | null;
+    amenities?: Array<string | null> | null;
     images?: {
       __typename?: 'ListingsAndReviewImage';
       medium_url?: string | null;
@@ -1429,6 +1430,7 @@ export const GetDetailedListingDocument = `
       host_name
       host_thumbnail_url
     }
+    amenities
   }
 }
     `;

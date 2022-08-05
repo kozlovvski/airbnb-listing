@@ -26,5 +26,6 @@ query getDetailedListing($id: String) {
       host_name
       host_thumbnail_url
     }
+    amenities
   }
 }

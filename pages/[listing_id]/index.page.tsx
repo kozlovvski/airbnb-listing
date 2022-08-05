@@ -1,5 +1,6 @@
 import { Divider } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import DetailedListingAmenities from 'components/listings/detailed_listing/DetailedListingAmenities/DetailedListingAmenities.component';
 import DetailedListingBasicInfo from 'components/listings/detailed_listing/DetailedListingBasicInfo/DetailedListingBasicInfo.component';
 import DetailedListingHero from 'components/listings/detailed_listing/DetailedListingHero/DetailedListingHero.component';
 import DetailedListingHost from 'components/listings/detailed_listing/DetailedListingHost/DetailedListingHost.component';
@@ -38,6 +39,7 @@ const DetailedListingPage: NextPage = (props) => {
         <Divider my={4} />
         <DetailedListingHost listing={listing} />
         <Divider my={4} />
+        <DetailedListingAmenities listing={listing} />
       </Content>
     </DetailedListingPageWrapper>
   );

@@ -1,5 +1,6 @@
 import { StarIcon } from '@chakra-ui/icons';
 import { Flex, FlexProps, Text } from '@chakra-ui/react';
+import { PRIMARY_COLOR } from 'styles/styles.contants';
 
 type Props = FlexProps & {
   score: number | null | undefined;
@@ -12,7 +13,7 @@ const PropertyRating = ({ score, ...flexProps }: Props) => {
 
   return (
     <Flex align="center" {...flexProps}>
-      <StarIcon color={score >= 90 ? 'gold' : 'teal.600'} />
+      <StarIcon color={score >= 90 ? 'gold' : PRIMARY_COLOR} />
       <Text ml={1} fontWeight="bold">
         {(score / 10).toFixed(1)}
       </Text>
