@@ -1,5 +1,4 @@
 import { Divider } from '@chakra-ui/react';
-import styled from '@emotion/styled';
 import DetailedListingAmenities from 'components/listings/detailed_listing/DetailedListingAmenities/DetailedListingAmenities.component';
 import DetailedListingBasicInfo from 'components/listings/detailed_listing/DetailedListingBasicInfo/DetailedListingBasicInfo.component';
 import DetailedListingHero from 'components/listings/detailed_listing/DetailedListingHero/DetailedListingHero.component';
@@ -7,18 +6,37 @@ import DetailedListingHost from 'components/listings/detailed_listing/DetailedLi
 import { useGetDetailedListingQuery } from 'generated/graphql-codegen';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useRef } from 'react';
-import { WRAPPER_WIDTH } from 'styles/styles.contants';
+import { useEffect, useState } from 'react';
 
 import {
   detailedListingAnimationVariants,
+  DetailedListingPageContent,
   DetailedListingPageWrapper,
 } from './index.styles';
 
 const DetailedListingPage: NextPage = (props) => {
   const router = useRouter();
-  const id = useRef(router.query.listing_id as string);
-  const listing = useGetDetailedListingQuery({ id: id.current }).data?.listing;
+  const [id, setId] = useState<string>();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const _id = router.query.listing_id;
+
+    if (typeof _id === 'string') {
+      setId(_id);
+    }
+  }, [router.isReady, router.query.listing_id]);
+
+  if (!id) {
+    return null;
+  }
+
+  return <PageContent id={id} {...props} />;
+};
+
+const PageContent = ({ id, ...otherProps }: { id: string }) => {
+  const listing = useGetDetailedListingQuery({ id }).data?.listing;
 
   if (!listing) {
     return null;
@@ -31,29 +49,18 @@ const DetailedListingPage: NextPage = (props) => {
       initial="initial"
       animate="animate"
       variants={detailedListingAnimationVariants}
-      {...props}
+      {...otherProps}
     >
       <DetailedListingHero listing={listing} />
-      <Content>
+      <DetailedListingPageContent>
         <DetailedListingBasicInfo listing={listing} />
         <Divider my={4} />
         <DetailedListingHost listing={listing} />
         <Divider my={4} />
         <DetailedListingAmenities listing={listing} />
-      </Content>
+      </DetailedListingPageContent>
     </DetailedListingPageWrapper>
   );
 };
-
-export const Content = styled.div`
-  position: relative;
-  padding: ${({ theme }) => theme.space[4]};
-  background: ${({ theme }) => theme.colors.white};
-
-  @media (max-width: ${WRAPPER_WIDTH}px) {
-    margin-top: -${({ theme }) => theme.space[5]};
-    border-radius: ${({ theme }) => theme.radii['3xl']};
-  }
-`;
 
 export default DetailedListingPage;
