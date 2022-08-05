@@ -8,9 +8,7 @@ type Props = {
 };
 
 const DetailedListingAmenities = ({ listing }: Props) => {
-  // making this random, because BE doesn't have this field yet
   const columnCount = useBreakpointValue([1, 2, 3, 4]);
-
   const { amenities } = listing;
 
   return (
