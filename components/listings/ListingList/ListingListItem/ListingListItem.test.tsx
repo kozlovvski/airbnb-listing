@@ -7,9 +7,13 @@ import ListingListItem from './ListingListItem.component';
 import { getListingThumbnail } from './ListingListItem.helpers';
 
 describe('ListingListItem', () => {
+  let listing: DefinedListing;
+  beforeEach(() => {
+    listing = mockedListing;
+  });
+
   it('should render a list item', () => {
     // given
-    const listing = mockedListing;
     // when
     const result = render(<ListingListItem listing={listing} />, {
       wrapper,
@@ -20,7 +24,6 @@ describe('ListingListItem', () => {
 
   it('should render a name', () => {
     // given
-    const listing = mockedListing;
     // when
     const result = render(<ListingListItem listing={listing} />, {
       wrapper,
@@ -31,7 +34,6 @@ describe('ListingListItem', () => {
 
   it('should render a price', () => {
     // given
-    const listing = mockedListing;
     // when
     const result = render(<ListingListItem listing={listing} />, {
       wrapper,
@@ -42,13 +44,34 @@ describe('ListingListItem', () => {
 
   it('should render an image', () => {
     // given
-    const listing = mockedListing;
     // when
     const result = render(<ListingListItem listing={listing} />, {
       wrapper,
     });
     // then
     expect(result.getByRole('img')).toBeInTheDocument();
+  });
+
+  it('should render a correct number of bathrooms when single', () => {
+    // given
+    listing.bathrooms = 1;
+    // when
+    const result = render(<ListingListItem listing={listing} />, {
+      wrapper,
+    });
+    // then
+    expect(result.getByText('1 bathroom')).toBeInTheDocument();
+  });
+
+  it('should render a correct number of bathrooms when single', () => {
+    // given
+    listing.bathrooms = 2;
+    // when
+    const result = render(<ListingListItem listing={listing} />, {
+      wrapper,
+    });
+    // then
+    expect(result.getByText('2 bathrooms')).toBeInTheDocument();
   });
 });
 

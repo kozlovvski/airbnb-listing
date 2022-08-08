@@ -53,7 +53,7 @@ const DetailedListingMoreInfoModal = ({ listing }: Props) => {
                 <Text>{house_rules}</Text>
               </>
             )}
-            {security_deposit && Boolean(Number(security_deposit)) && (
+            {Boolean(Number(security_deposit)) && (
               <>
                 <Text mt={4} mb={2} fontWeight="bold">
                   Deposit

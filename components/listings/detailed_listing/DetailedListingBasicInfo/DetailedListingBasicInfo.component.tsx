@@ -3,7 +3,7 @@ import PropertyRating from 'components/listings/PropertyRating/PropertyRating.co
 import PropertyTypeBadge from 'components/listings/PropertyTypeBadge/PropertyTypeBadge.components';
 import { DetailedListing } from 'typings/listings/DetailedListing';
 
-import DetailedListingMoreInfoModal from './DetailedListingMoreInfoModal.component';
+import DetailedListingMoreInfoModal from './DetailedListingMoreInfoModal/DetailedListingMoreInfoModal.component';
 
 type Props = {
   listing: DetailedListing;
