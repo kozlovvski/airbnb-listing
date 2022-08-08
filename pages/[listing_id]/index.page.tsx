@@ -3,6 +3,8 @@ import DetailedListingAmenities from 'components/listings/detailed_listing/Detai
 import DetailedListingBasicInfo from 'components/listings/detailed_listing/DetailedListingBasicInfo/DetailedListingBasicInfo.component';
 import DetailedListingHero from 'components/listings/detailed_listing/DetailedListingHero/DetailedListingHero.component';
 import DetailedListingHost from 'components/listings/detailed_listing/DetailedListingHost/DetailedListingHost.component';
+import FullscreenError from 'components/ui/FullscreenError/FullscreenError.component';
+import FullscreenLoader from 'components/ui/FullscreenLoader/FullscreenLoader.component';
 import { useGetDetailedListingQuery } from 'generated/graphql-codegen';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -36,31 +38,36 @@ const DetailedListingPage: NextPage = (props) => {
 };
 
 const PageContent = ({ id, ...otherProps }: { id: string }) => {
-  const listing = useGetDetailedListingQuery({ id }).data?.listing;
+  const { data, isLoading, isSuccess } = useGetDetailedListingQuery({
+    id,
+  });
+  const listing = data?.listing;
 
-  if (!listing) {
-    return null;
+  if (isLoading) return <FullscreenLoader />;
+
+  if (isSuccess && listing) {
+    return (
+      <DetailedListingPageWrapper
+        transition={{ type: 'tween', duration: 0.2 }}
+        exit="initial"
+        initial="initial"
+        animate="animate"
+        variants={detailedListingAnimationVariants}
+        {...otherProps}
+      >
+        <DetailedListingHero listing={listing} />
+        <DetailedListingPageContent>
+          <DetailedListingBasicInfo listing={listing} />
+          <Divider my={4} />
+          <DetailedListingHost listing={listing} />
+          <Divider my={4} />
+          <DetailedListingAmenities listing={listing} />
+        </DetailedListingPageContent>
+      </DetailedListingPageWrapper>
+    );
   }
 
-  return (
-    <DetailedListingPageWrapper
-      transition={{ type: 'tween', duration: 0.2 }}
-      exit="initial"
-      initial="initial"
-      animate="animate"
-      variants={detailedListingAnimationVariants}
-      {...otherProps}
-    >
-      <DetailedListingHero listing={listing} />
-      <DetailedListingPageContent>
-        <DetailedListingBasicInfo listing={listing} />
-        <Divider my={4} />
-        <DetailedListingHost listing={listing} />
-        <Divider my={4} />
-        <DetailedListingAmenities listing={listing} />
-      </DetailedListingPageContent>
-    </DetailedListingPageWrapper>
-  );
+  return <FullscreenError status={404} />;
 };
 
 export default DetailedListingPage;
