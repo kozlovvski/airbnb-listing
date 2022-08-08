@@ -3,6 +3,7 @@ import DetailedListingAmenities from 'components/listings/detailed_listing/Detai
 import DetailedListingBasicInfo from 'components/listings/detailed_listing/DetailedListingBasicInfo/DetailedListingBasicInfo.component';
 import DetailedListingHero from 'components/listings/detailed_listing/DetailedListingHero/DetailedListingHero.component';
 import DetailedListingHost from 'components/listings/detailed_listing/DetailedListingHost/DetailedListingHost.component';
+import DetailedListingReviews from 'components/listings/detailed_listing/DetailedListingReviewsList/DetailedListingReviewsList.component';
 import FullscreenError from 'components/ui/FullscreenError/FullscreenError.component';
 import FullscreenLoader from 'components/ui/FullscreenLoader/FullscreenLoader.component';
 import { useGetDetailedListingQuery } from 'generated/graphql-codegen';
@@ -62,6 +63,8 @@ const PageContent = ({ id, ...otherProps }: { id: string }) => {
           <DetailedListingHost listing={listing} />
           <Divider my={4} />
           <DetailedListingAmenities listing={listing} />
+          <Divider my={4} />
+          <DetailedListingReviews listing={listing} />
         </DetailedListingPageContent>
       </DetailedListingPageWrapper>
     );

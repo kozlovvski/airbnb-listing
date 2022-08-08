@@ -4,9 +4,10 @@ import { PRIMARY_COLOR } from 'styles/styles.contants';
 
 type Props = FlexProps & {
   score: number | null | undefined;
+  endAdornment?: React.ReactNode;
 };
 
-const PropertyRating = ({ score, ...flexProps }: Props) => {
+const PropertyRating = ({ score, endAdornment, ...flexProps }: Props) => {
   if (typeof score !== 'number') {
     return null;
   }
@@ -16,6 +17,7 @@ const PropertyRating = ({ score, ...flexProps }: Props) => {
       <StarIcon color={score >= 90 ? 'gold' : PRIMARY_COLOR} />
       <Text ml={1} fontWeight="bold">
         {(score / 10).toFixed(1)}
+        {endAdornment}
       </Text>
     </Flex>
   );

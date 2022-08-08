@@ -27,5 +27,12 @@ query getDetailedListing($id: String) {
       host_thumbnail_url
     }
     amenities
+    reviews {
+      _id
+      reviewer_name
+      comments
+      date
+    }
+    number_of_reviews
   }
 }

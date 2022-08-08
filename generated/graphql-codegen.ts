@@ -1355,6 +1355,7 @@ export type GetDetailedListingQuery = {
     bathrooms?: any | null;
     room_type?: string | null;
     amenities?: Array<string | null> | null;
+    number_of_reviews?: number | null;
     images?: {
       __typename?: 'ListingsAndReviewImage';
       medium_url?: string | null;
@@ -1373,6 +1374,13 @@ export type GetDetailedListingQuery = {
       host_name?: string | null;
       host_thumbnail_url?: string | null;
     } | null;
+    reviews?: Array<{
+      __typename?: 'ListingsAndReviewReview';
+      _id?: string | null;
+      reviewer_name?: string | null;
+      comments?: string | null;
+      date?: any | null;
+    } | null> | null;
   } | null;
 };
 
@@ -1431,6 +1439,13 @@ export const GetDetailedListingDocument = `
       host_thumbnail_url
     }
     amenities
+    reviews {
+      _id
+      reviewer_name
+      comments
+      date
+    }
+    number_of_reviews
   }
 }
     `;
