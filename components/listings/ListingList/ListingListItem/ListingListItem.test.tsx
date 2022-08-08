@@ -1,18 +1,17 @@
-import { theme } from '@chakra-ui/react';
 import { render } from '@testing-library/react';
 import { mockedListing } from 'tests/data/listings';
 import { wrapper } from 'tests/testUtils';
 import { DefinedListing } from 'typings/listings/Listing';
 
 import ListingListItem from './ListingListItem.component';
-import { getListingThumbnail, stringToColor } from './ListingListItem.helpers';
+import { getListingThumbnail } from './ListingListItem.helpers';
 
 describe('ListingListItem', () => {
   it('should render a list item', () => {
     // given
     const listing = mockedListing;
     // when
-    const result = render(<ListingListItem listing={listing} isSelected />, {
+    const result = render(<ListingListItem listing={listing} />, {
       wrapper,
     });
     // then
@@ -23,7 +22,7 @@ describe('ListingListItem', () => {
     // given
     const listing = mockedListing;
     // when
-    const result = render(<ListingListItem listing={listing} isSelected />, {
+    const result = render(<ListingListItem listing={listing} />, {
       wrapper,
     });
     // then
@@ -34,7 +33,7 @@ describe('ListingListItem', () => {
     // given
     const listing = mockedListing;
     // when
-    const result = render(<ListingListItem listing={listing} isSelected />, {
+    const result = render(<ListingListItem listing={listing} />, {
       wrapper,
     });
     // then
@@ -45,7 +44,7 @@ describe('ListingListItem', () => {
     // given
     const listing = mockedListing;
     // when
-    const result = render(<ListingListItem listing={listing} isSelected />, {
+    const result = render(<ListingListItem listing={listing} />, {
       wrapper,
     });
     // then
@@ -80,25 +79,5 @@ describe('getListingThumbnail', () => {
     const result = getListingThumbnail(listing);
     // then
     expect(result).toBe(medium_url);
-  });
-});
-
-describe('stringToColor', () => {
-  it('should return a gray color string if provided string is falsy', () => {
-    // given
-    const str = '';
-    // when
-    const result = stringToColor(str);
-    // then
-    expect(result).toBe(theme.colors.gray[200]);
-  });
-
-  it('should return a hex color string for a correct string', () => {
-    // given
-    const str = 'dummy string';
-    // when
-    const result = stringToColor(str);
-    // then
-    expect(result).toMatch(/^#[0-9A-F]{6}$/i);
   });
 });

@@ -58,6 +58,7 @@ const PropertyReview = ({ review, ...boxProps }: Props) => {
   );
 };
 
+// moving this to a separate component in order to avoid code duplication
 const ReviewUI = forwardRef<HTMLParagraphElement, Props>(
   ({ review, noOfLines, children, ...boxProps }, ref) => {
     const { date, comments, reviewer_name } = review;
