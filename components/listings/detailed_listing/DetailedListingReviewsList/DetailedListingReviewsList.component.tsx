@@ -49,9 +49,7 @@ const DetailedListingReviews = ({ listing }: Props) => {
       >
         {range(0, 6).map((index) => {
           const review = reviews[index];
-          return review ? (
-            <PropertyReview key={review?._id} review={review} />
-          ) : null;
+          return review && <PropertyReview key={review?._id} review={review} />;
         })}
       </Grid>
       {reviews.length > 6 && (

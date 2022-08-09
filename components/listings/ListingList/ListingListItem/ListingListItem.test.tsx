@@ -29,7 +29,7 @@ describe('ListingListItem', () => {
       wrapper,
     });
     // then
-    expect(result.getByText('Listing 1')).toBeInTheDocument();
+    expect(result.getByText('Listing 1', { exact: false })).toBeInTheDocument();
   });
 
   it('should render a price', () => {
@@ -39,7 +39,7 @@ describe('ListingListItem', () => {
       wrapper,
     });
     // then
-    expect(result.getByText(/\$50 USD/i)).toBeInTheDocument();
+    expect(result.getByText('$50', { exact: false })).toBeInTheDocument();
   });
 
   it('should render an image', () => {
@@ -60,7 +60,9 @@ describe('ListingListItem', () => {
       wrapper,
     });
     // then
-    expect(result.getByText('1 bathroom')).toBeInTheDocument();
+    expect(
+      result.getByText('1 bathroom', { exact: false })
+    ).toBeInTheDocument();
   });
 
   it('should render a correct number of bathrooms when single', () => {
@@ -71,7 +73,9 @@ describe('ListingListItem', () => {
       wrapper,
     });
     // then
-    expect(result.getByText('2 bathrooms')).toBeInTheDocument();
+    expect(
+      result.getByText('2 bathrooms', { exact: false })
+    ).toBeInTheDocument();
   });
 });
 

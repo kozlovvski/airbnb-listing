@@ -21,7 +21,7 @@ describe('DetailedListingMoreInfoModal', () => {
       wrapper,
     });
     // then
-    expect(result.getByText('Show more')).toBeInTheDocument();
+    expect(result.getByText('Show more', { exact: false })).toBeInTheDocument();
   });
 
   it('should render a description in a modal', () => {
@@ -32,7 +32,9 @@ describe('DetailedListingMoreInfoModal', () => {
     });
     fireEvent.click(result.getByText('Show more'));
     // then
-    expect(result.getByText('Nice house by the lake')).toBeInTheDocument();
+    expect(
+      result.getByText('Nice house by the lake', { exact: false })
+    ).toBeInTheDocument();
   });
 
   it('should render a security_deposit in a modal', () => {
@@ -43,7 +45,7 @@ describe('DetailedListingMoreInfoModal', () => {
     });
     fireEvent.click(result.getByText('Show more'));
     // then
-    expect(result.getByText(/\$2000/i)).toBeInTheDocument();
+    expect(result.getByText('$2000', { exact: false })).toBeInTheDocument();
   });
 
   it('should render house rules in a modal', () => {
@@ -54,6 +56,8 @@ describe('DetailedListingMoreInfoModal', () => {
     });
     fireEvent.click(result.getByText('Show more'));
     // then
-    expect(result.getByText('Stay quiet')).toBeInTheDocument();
+    expect(
+      result.getByText('Stay quiet', { exact: false })
+    ).toBeInTheDocument();
   });
 });
