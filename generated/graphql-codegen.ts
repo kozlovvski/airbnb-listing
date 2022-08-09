@@ -1,4 +1,9 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import {
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
+  useQuery,
+  UseQueryOptions,
+} from 'react-query';
 
 import { endpoint, getFetchParams } from '../graphql/graphql.constants';
 export type Maybe<T> = T | null;
@@ -1330,6 +1335,55 @@ export type UpdateManyPayload = {
   modifiedCount: Scalars['Int'];
 };
 
+export type GetDetailedListingQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+export type GetDetailedListingQuery = {
+  __typename?: 'Query';
+  listing?: {
+    __typename?: 'ListingsAndReview';
+    _id?: string | null;
+    name?: string | null;
+    summary?: string | null;
+    description?: string | null;
+    property_type?: string | null;
+    house_rules?: string | null;
+    security_deposit?: any | null;
+    price?: any | null;
+    beds?: number | null;
+    bathrooms?: any | null;
+    room_type?: string | null;
+    amenities?: Array<string | null> | null;
+    number_of_reviews?: number | null;
+    images?: {
+      __typename?: 'ListingsAndReviewImage';
+      medium_url?: string | null;
+      picture_url?: string | null;
+      thumbnail_url?: string | null;
+      xl_picture_url?: string | null;
+    } | null;
+    review_scores?: {
+      __typename?: 'ListingsAndReviewReview_score';
+      review_scores_rating?: number | null;
+    } | null;
+    host?: {
+      __typename?: 'ListingsAndReviewHost';
+      host_listings_count?: number | null;
+      host_location?: string | null;
+      host_name?: string | null;
+      host_thumbnail_url?: string | null;
+    } | null;
+    reviews?: Array<{
+      __typename?: 'ListingsAndReviewReview';
+      _id?: string | null;
+      reviewer_name?: string | null;
+      comments?: string | null;
+      date?: any | null;
+    } | null> | null;
+  } | null;
+};
+
 export type GetListingsQueryVariables = Exact<{
   pageParam?: InputMaybe<Scalars['Int']>;
 }>;
@@ -1355,6 +1409,103 @@ export type GetListingsQuery = {
   } | null> | null;
 };
 
+export const GetDetailedListingDocument = `
+    query getDetailedListing($id: String) {
+  listing: listingsAndReview(query: {_id: $id}) {
+    _id
+    name
+    summary
+    description
+    property_type
+    house_rules
+    security_deposit
+    price
+    beds
+    bathrooms
+    room_type
+    images {
+      medium_url
+      picture_url
+      thumbnail_url
+      xl_picture_url
+    }
+    review_scores {
+      review_scores_rating
+    }
+    host {
+      host_listings_count
+      host_location
+      host_name
+      host_thumbnail_url
+    }
+    amenities
+    reviews {
+      _id
+      reviewer_name
+      comments
+      date
+    }
+    number_of_reviews
+  }
+}
+    `;
+export const useGetDetailedListingQuery = <
+  TData = GetDetailedListingQuery,
+  TError = unknown
+>(
+  variables?: GetDetailedListingQueryVariables,
+  options?: UseQueryOptions<GetDetailedListingQuery, TError, TData>
+) =>
+  useQuery<GetDetailedListingQuery, TError, TData>(
+    variables === undefined
+      ? ['getDetailedListing']
+      : ['getDetailedListing', variables],
+    fetcher<GetDetailedListingQuery, GetDetailedListingQueryVariables>(
+      GetDetailedListingDocument,
+      variables
+    ),
+    options
+  );
+
+useGetDetailedListingQuery.getKey = (
+  variables?: GetDetailedListingQueryVariables
+) =>
+  variables === undefined
+    ? ['getDetailedListing']
+    : ['getDetailedListing', variables];
+export const useInfiniteGetDetailedListingQuery = <
+  TData = GetDetailedListingQuery,
+  TError = unknown
+>(
+  pageParamKey: keyof GetDetailedListingQueryVariables,
+  variables?: GetDetailedListingQueryVariables,
+  options?: UseInfiniteQueryOptions<GetDetailedListingQuery, TError, TData>
+) =>
+  useInfiniteQuery<GetDetailedListingQuery, TError, TData>(
+    variables === undefined
+      ? ['getDetailedListing.infinite']
+      : ['getDetailedListing.infinite', variables],
+    (metaData) =>
+      fetcher<GetDetailedListingQuery, GetDetailedListingQueryVariables>(
+        GetDetailedListingDocument,
+        { ...variables, ...(metaData.pageParam ?? {}) }
+      )(),
+    options
+  );
+
+useInfiniteGetDetailedListingQuery.getKey = (
+  variables?: GetDetailedListingQueryVariables
+) =>
+  variables === undefined
+    ? ['getDetailedListing.infinite']
+    : ['getDetailedListing.infinite', variables];
+useGetDetailedListingQuery.fetcher = (
+  variables?: GetDetailedListingQueryVariables
+) =>
+  fetcher<GetDetailedListingQuery, GetDetailedListingQueryVariables>(
+    GetDetailedListingDocument,
+    variables
+  );
 export const GetListingsDocument = `
     query getListings($pageParam: Int) {
   listings: listingsAndReviews(input: {page: $pageParam}) {
@@ -1389,6 +1540,30 @@ export const useGetListingsQuery = <TData = GetListingsQuery, TError = unknown>(
 
 useGetListingsQuery.getKey = (variables?: GetListingsQueryVariables) =>
   variables === undefined ? ['getListings'] : ['getListings', variables];
+export const useInfiniteGetListingsQuery = <
+  TData = GetListingsQuery,
+  TError = unknown
+>(
+  pageParamKey: keyof GetListingsQueryVariables,
+  variables?: GetListingsQueryVariables,
+  options?: UseInfiniteQueryOptions<GetListingsQuery, TError, TData>
+) =>
+  useInfiniteQuery<GetListingsQuery, TError, TData>(
+    variables === undefined
+      ? ['getListings.infinite']
+      : ['getListings.infinite', variables],
+    (metaData) =>
+      fetcher<GetListingsQuery, GetListingsQueryVariables>(
+        GetListingsDocument,
+        { ...variables, ...(metaData.pageParam ?? {}) }
+      )(),
+    options
+  );
+
+useInfiniteGetListingsQuery.getKey = (variables?: GetListingsQueryVariables) =>
+  variables === undefined
+    ? ['getListings.infinite']
+    : ['getListings.infinite', variables];
 useGetListingsQuery.fetcher = (variables?: GetListingsQueryVariables) =>
   fetcher<GetListingsQuery, GetListingsQueryVariables>(
     GetListingsDocument,

@@ -1,0 +1,38 @@
+query getDetailedListing($id: String) {
+  listing: listingsAndReview(query: { _id: $id }) {
+    _id
+    name
+    summary
+    description
+    property_type
+    house_rules
+    security_deposit
+    price
+    beds
+    bathrooms
+    room_type
+    images {
+      medium_url
+      picture_url
+      thumbnail_url
+      xl_picture_url
+    }
+    review_scores {
+      review_scores_rating
+    }
+    host {
+      host_listings_count
+      host_location
+      host_name
+      host_thumbnail_url
+    }
+    amenities
+    reviews {
+      _id
+      reviewer_name
+      comments
+      date
+    }
+    number_of_reviews
+  }
+}

@@ -1,6 +1,6 @@
 import { useInView } from 'framer-motion';
 import { GetListingsQuery } from 'generated/graphql-codegen';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { ListingListWrapper } from './ListingList.styles';
 import ListingListItem from './ListingListItem/ListingListItem.component';
@@ -25,13 +25,7 @@ const ListingList = ({ pages, onSkeletonInView, selectedId }: Props) => {
       {pages?.map(({ listings }) =>
         listings?.map(
           (listing) =>
-            listing && (
-              <ListingListItem
-                listing={listing}
-                key={listing._id}
-                isSelected={listing._id === selectedId}
-              />
-            )
+            listing && <ListingListItem listing={listing} key={listing._id} />
         )
       )}
       {[...Array(20)].map((_, i) => (

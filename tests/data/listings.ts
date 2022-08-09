@@ -13,6 +13,8 @@ export const mockedListingList: DefinedListing[] = [
       xl_picture_url: 'https://via.placeholder.com/450',
     },
     summary: 'Lorem ipsum',
+    bathrooms: '2',
+    beds: 3,
   },
   {
     _id: '2',
@@ -25,6 +27,8 @@ export const mockedListingList: DefinedListing[] = [
       xl_picture_url: 'https://via.placeholder.com/450',
     },
     summary: 'Lorem ipsum',
+    bathrooms: '1',
+    beds: 5,
   },
 ];
 
